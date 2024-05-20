@@ -26,5 +26,8 @@
   "editor.minimap.enabled": false,
   "terminal.integrated.cursorStyle": "underline",
   "debug.showSubSessionsInToolBar": true,
-  "workbench.iconTheme": "catppuccin-mocha"
+  "workbench.iconTheme": "catppuccin-mocha",
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  }
 }
