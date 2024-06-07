@@ -8,7 +8,7 @@ configuration {
     sort: true;
     disable-history: true;
 
-    modi: "window,drun";
+    modi: [window,drun,run];
     drun-display-format: "{name}";
     window-format: "{w}  :  {c}  |   {t}";
 }
