@@ -5,10 +5,11 @@ HISTORY_IGNORE="(ls|ls*| *|)"
 
 bindkey -e
 
-zstyle :compinstall filename '/home/bleh/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 autoload -Uz compinit
 compinit
 
+export PATH="$HOME/.local/bin/:$PATH"
 export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
