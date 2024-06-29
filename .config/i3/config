@@ -77,7 +77,7 @@ bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+n focus left
 bindsym $mod+e focus down
 bindsym $mod+i focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+o focus right
 
 # move focused window
 #bindsym $mod+Shift+j move left
@@ -89,7 +89,7 @@ bindsym $mod+semicolon focus right
 bindsym $mod+Shift+n move left
 bindsym $mod+Shift+e move down
 bindsym $mod+Shift+i move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+o move right
 
 # split in horizontal orientation
 bindsym $mod+h split h
@@ -159,7 +159,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -172,7 +172,7 @@ mode "resize" {
         bindsym n resize shrink width 10 px or 10 ppt
         bindsym e resize grow height 10 px or 10 ppt
         bindsym i resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym o resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
