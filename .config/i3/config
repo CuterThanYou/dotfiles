@@ -64,8 +64,8 @@ for_window [class="steam*"] floating enable
 assign [class="steam*"] $ws5
 
 #screenshot
-bindsym $mod+s exec "scrot $HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
-bindsym --release $mod+Shift+s exec "scrot -s --line mode=edge $HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png -e 'xclip -selection clipboard -t image/png -i $f'"
+bindsym $mod+s exec "$HOME/.local/bin/screenshot"
+bindsym --release $mod+Shift+s exec "$HOME/.local/bin/screenshot select"
 
 # windows
 for_window [class=".*"] border pixel 3
