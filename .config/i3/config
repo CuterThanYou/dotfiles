@@ -32,9 +32,13 @@ bindsym $mod+b exec TZ=UTC firefox
 for_window [class="steam*"] floating enable
 assign [class="steam*"] $ws5
 
-#screenshot
+# screenshot
 bindsym $mod+s exec "$HOME/.local/bin/screenshot"
 bindsym --release $mod+Shift+s exec "$HOME/.local/bin/screenshot select"
+
+# brightness
+bindsym $mod+u exec "brillo -q -A 5"
+bindsym $mod+l exec "brillo -q -U 5"
 
 # windows
 for_window [class=".*"] border pixel 3
