@@ -17,7 +17,8 @@
 
 
 (defalias
-  layr (layer-toggle symbol1)
+  layr1 (layer-toggle symbol2)
+  layr2 (layer-toggle symbol3)
 )
 
 
@@ -26,7 +27,7 @@
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]    \
   bspc a    r    s    t    g    m    n    e    i    o    '    ret
   lsft x    c    d    v    z    k    h    ,    .    /    rsft
-  lctl lmet lalt           spc            @layr rctl
+  lctl lmet lalt           spc            @layr1 rctl
 )
 
 
@@ -43,7 +44,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    1    2    3    4    5    6    7    8    9    0    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _
+@layr2 _    _    _    _    _    _    _    _    _    _    @layr2
   _    _    _              _              _    _
 )
 
