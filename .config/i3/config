@@ -22,9 +22,9 @@ font pango:monospace 8
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
-exec_always --no-startup-id feh --bg-fill ~/Pictures/purple_leaves.png
+exec_always --no-startup-id feh --bg-fill $HOME/Pictures/purple_leaves.png
 exec --no-startup-id picom &
-exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -49,7 +49,7 @@ floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+#tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -99,9 +99,9 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
+#bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -236,4 +236,5 @@ client.background        $base
 
 for_window [class="steam*"] floating enable
 
-bindsym $mod+z exec "scrot ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
+bindsym $mod+s exec "scrot $HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
+bindsym --release $mod+Shift+s exec "scrot $HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
