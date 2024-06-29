@@ -176,7 +176,7 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<span foreground='#b4befe'>%a</span><span foreground='#f5c2e7'> - %s</span>\n%b"
+    format = "<span foreground='#b4befe'>%s</span><span foreground='#f5c2e7'> - %a</span>\n%b"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
