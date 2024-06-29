@@ -29,5 +29,7 @@
   "workbench.iconTheme": "catppuccin-mocha",
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
-  }
+  },
+  "comments.useRelativeTime": false,
+  "editor.lineNumbers": "relative"
 }
