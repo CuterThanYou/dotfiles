@@ -33,9 +33,9 @@
 
 (deflayer symbol1
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  caps 1    2    3    4    5    6    7    8    9    0    _    _    _
-  esc  ~    /    =    -    :    home left down up right  end  _
-@layr2 \_   [    \(   {    \    |    }    \)   ]    _    @layr2
+  esc  1    2    3    4    5    6    7    8    9    0    _    _    _
+  -    ~    /    =    -    :    home left down up right  end  _
+@layr2 \_   [    \(   {    \    |    }    \)   ]   caps  @layr2
   _    _    _              _              _    _
 )
 
