@@ -55,7 +55,7 @@ floating_modifier $mod
 bindsym $mod+Return exec alacritty
 
 # brower
-bindsym $mod+e exec firefox
+bindsym $mod+b exec firefox
 
 # kill focused window
 bindsym $mod+q kill
