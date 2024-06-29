@@ -11,7 +11,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-export EDITOR="nano"
+export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 
