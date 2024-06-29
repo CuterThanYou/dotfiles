@@ -241,4 +241,4 @@ for_window [class="steam*"] floating enable
 
 #screenshot
 bindsym $mod+s exec "scrot $HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
-bindsym --release $mod+Shift+s exec "scrot $HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
+bindsym --release $mod+Shift+s exec "scrot -s --line mode=edge $HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
