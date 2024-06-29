@@ -2,7 +2,7 @@
 output="$HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
 
 case "$1" in
-    "window") scrot "$output" || exit ;;
+    "window") scrot "$output" --focused --border || exit ;;
     "select") scrot "$output" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
     *) scrot "$output" || exit ;;
 esac
