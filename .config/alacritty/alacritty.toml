@@ -17,4 +17,8 @@ blinking = "Always"
 #decorations = "None"
 padding               = { x = 5, y = 5 }
 opacity               = 0.8
-blur = true
+#blur = true
+#decorations_theme_varient = "Dark"
+
+[colors]
+transparent_background_colors = true

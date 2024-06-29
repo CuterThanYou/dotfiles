@@ -235,3 +235,5 @@ client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
 client.background        $base
 
 for_window [class="steam*"] floating enable
+
+bindsym $mod+z exec "scrot ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
