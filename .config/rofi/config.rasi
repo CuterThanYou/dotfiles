@@ -1,0 +1,115 @@
+@theme "/dev/null"
+
+configuration {
+    display-drun: "Applications:";
+    display-window: "Windows:";
+    drun-display-format: "{name}";
+    font: "Nunito Bold 15";
+    show-icon: false;
+    sort: true;
+    disable-history: true;
+}
+
+* {
+    background-color: transparent;
+    text-color: @text;
+
+    margin:  0px;
+    padding: 0px;
+    spacing: 0px;
+
+    base: #1e1e2eBF;
+    mantle: #181825BF;
+    crust: #11111bBF;
+
+    text: #cdd6f4;
+    alt-text: #a6adc8;
+    alt-text1: #6c7086;
+
+    blue: #89b4fa;
+    lavender: #b4befe;
+    sapphire: #74c7ec;
+    sky: #89dceb;
+    teal: #94e2d5;
+    green: #a6e3a1;
+    yellow: #f9e2af;
+    peach: #fab387;
+    maroon: #eba0ac;
+    red: #f38ba8;
+    mauve: #cba6f7;
+    pink: #f5c2e7;
+    flamingo: #f2cdcd;
+    rosewater: #f5e0dc;
+}
+
+window {
+    location: north;
+    width: 25%;
+    y-offset: 20%;
+    border-radius: 24px;
+    border: 2px;
+    
+    background-color: @crust;
+    border-color: @pink;
+}
+
+mainbox {
+    padding: 12px;
+}
+
+inputbar {
+    background-color: @base;
+    border-color: @blue;
+
+    border: 2px;
+    border-radius: 16px;
+
+    padding: 8px 16px;
+    spacing: 8px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @pink;
+}
+
+entry {
+    placeholder: "Search";
+    placeholder-color:  @alt-text;
+}
+
+message {
+    margin: 12px 0 0;
+    border-radius: 16px;
+}
+
+textbox {
+    padding: 8px 24px;
+}
+
+listview {
+    margin: 12px 0 0;
+    lines: 5;
+    columns: 1;
+
+    fixed-height: false;
+}
+
+element {
+    padding: 8px 16px;
+    spacing: 8px;
+    border-radius:  16px;
+}
+
+element normal active {
+    text-color: @pink;
+}
+
+element selected normal, element selected active {
+    background-color: @lavender;
+    text-color: @mantle;
+}
+
+element-text {
+    text-color: inherit;
+}
