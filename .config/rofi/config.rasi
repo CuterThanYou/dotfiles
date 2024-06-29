@@ -3,12 +3,13 @@
 configuration {
     display-drun: "Applications:";
     display-window: "Windows:";
-    drun-display-format: "{name}";
     font: "Nunito Bold 15";
     show-icon: false;
     sort: true;
     disable-history: true;
+
     modi: "window,drun";
+    drun-display-format: "{name}";
     window-format: "{w}  :  {c}  |   {t}";
 }
 
