@@ -1,7 +1,7 @@
-HISTFILE=~/.histfile
+HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
-HISTORY_IGNORE="(ls| *|)"
+HISTORY_IGNORE="(ls|ls*| *|)"
 
 bindkey -e
 
