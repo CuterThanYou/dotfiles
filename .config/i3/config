@@ -37,8 +37,8 @@ bindsym $mod+s exec "$HOME/.local/bin/screenshot"
 bindsym --release $mod+Shift+s exec "$HOME/.local/bin/screenshot select"
 
 # brightness
-bindsym $mod+u exec "brillo -q -A 5"
-bindsym $mod+l exec "brillo -q -U 5"
+bindsym $mod+u exec "brightnessctl -e set 5%+"
+bindsym $mod+l exec "brightnessctl -e set 5%-"
 
 # windows
 for_window [class=".*"] border pixel 3
