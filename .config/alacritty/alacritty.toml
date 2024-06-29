@@ -22,3 +22,11 @@ opacity               = 0.5
 
 [colors]
 transparent_background_colors = true
+
+[mouse]
+hide_when_typing = true
+
+[keyboard]
+bindings = [
+	{key="Return",mods="Super|Shift",action="SpawnNewInstance"},
+]
