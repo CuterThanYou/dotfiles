@@ -1,0 +1,26 @@
+{
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "python.analysis.completeFunctionParens": true,
+  "explorer.confirmDelete": false,
+  "terminal.integrated.defaultProfile.osx": "bash",
+  "workbench.preferredLightColorTheme": "Light Pink",
+  "workbench.preferredDarkColorTheme": "Pastel-Pink-Dark",
+  "workbench.activityBar.location": "top",
+  "workbench.sideBar.location": "right",
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.startupEditor": "none",
+  "telemetry.telemetryLevel": "off",
+  "editor.fontFamily": "Maple Mono, Symbols Nerd Font, monospace",
+  "terminal.integrated.fontFamily": "'Maple Mono'",
+  "workbench.editor.tabActionCloseVisibility": false,
+  "window.menuBarVisibility": "toggle",
+  "settingsSync.ignoredExtensions": []
+}
