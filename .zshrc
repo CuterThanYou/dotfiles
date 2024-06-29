@@ -1,15 +1,13 @@
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-bindkey -e
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/bleh/.zshrc'
+HISTORY_IGNORE="(ls| *|)"
 
+bindkey -e
+
+zstyle :compinstall filename '/home/bleh/.zshrc'
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
 
 export EDITOR="nvim"
 export TERMINAL="alacritty"
