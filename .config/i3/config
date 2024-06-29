@@ -59,7 +59,7 @@ bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Return exec alacritty
 
 # brower
-bindsym $mod+b exec firefox
+bindsym $mod+b exec TZ=UTC firefox
 
 #steam esttings
 for_window [class="steam*"] floating enable
