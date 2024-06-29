@@ -8,6 +8,8 @@ configuration {
     show-icon: false;
     sort: true;
     disable-history: true;
+    modi: "window,drun";
+    window-format: "{w}  :  {c}  |   {t}";
 }
 
 * {
