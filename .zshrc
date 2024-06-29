@@ -1,4 +1,5 @@
-PROMPT='%B%F{magenta}%n '$'\U2740'' %f %F{blue}%~%f%b %F{blue}'$'\U2771''%f '
+setopt PROMPT_SUBST
+PROMPT='%B%F{magenta}%n '$'\U2740'' %f %F{blue}%~%f %F{green}${vcs_info_msg_0_}%f%b%F{blue}'$'\U2771''%f '
 
 # history
 HISTFILE=~/.zsh_history
@@ -12,6 +13,11 @@ setopt hist_ignore_all_dups
 # auto complete
 autoload -Uz compinit
 compinit
+
+# version control
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '%b '
 
 export PATH="$HOME/.local/bin/:$PATH"
 export EDITOR="nvim"
