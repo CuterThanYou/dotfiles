@@ -6,7 +6,7 @@ configuration {
     font: "Nunito Bold 15";
     show-icon: false;
     sort: true;
-    disable-history: true;
+/*    disable-history: true; */
 
     modi: [window,drun,run];
     drun-display-format: "{name}";
