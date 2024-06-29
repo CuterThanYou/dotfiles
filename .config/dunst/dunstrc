@@ -93,7 +93,7 @@
     padding = 8
 
     # Horizontal padding.
-    horizontal_padding = 11
+    horizontal_padding = 14
 
     # Padding between text and icon.
     text_icon_padding = 0
@@ -176,11 +176,11 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<span foreground='#b4befe'>%s</span><span foreground='#f5c2e7'> - %a</span>\n%b"
+    format = "<span foreground='#f5c2e7'>%s</span>\n%b"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
-    alignment = center
+    alignment = left
 
     # Vertical alignment of message text and icon.
     # Possible values are "top", "center" and "bottom".
@@ -334,14 +334,14 @@
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#1e1e2e"
-    foreground = "#cdd6f4"
+    foreground = "#b4befe"
     timeout = 7
     # Icon for notifications with low urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_normal]
     background = "#1e1e2e"
-    foreground = "#cdd6f4"
+    foreground = "#b4befe"
     timeout = 7
     override_pause_level = 30
     # Icon for notifications with normal urgency, uncomment to enable
@@ -349,7 +349,7 @@
 
 [urgency_critical]
     background = "#1e1e2e"
-    foreground = "#cdd6f4"
+    foreground = "#b4befe"
     frame_color = "#f38ba8"
     timeout = 0
     override_pause_level = 60
