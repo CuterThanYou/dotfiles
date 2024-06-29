@@ -67,7 +67,7 @@ assign [class="steam*"] $ws5
 
 #screenshot
 bindsym $mod+s exec "scrot $HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
-bindsym --release $mod+Shift+s exec "scrot -s --line mode=edge $HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
+bindsym --release $mod+Shift+s exec "scrot -s --line mode=edge $HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png -e 'xclip -selection clipboard -t image/png -i $f'"
 
 # windows
 for_window [class=".*"] border pixel 3
