@@ -7,6 +7,8 @@ HISTSIZE=1000
 SAVEHIST=1000
 HISTORY_IGNORE="(ls|ls*| *|)"
 setopt hist_ignore_all_dups
+setopt hist_ignore_all_dups
+setopt inc_append_history # write history immediately
 
 #bindkey -e
 
