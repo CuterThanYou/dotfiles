@@ -12,10 +12,6 @@ exec_always --no-startup-id dunst
 #exec "setxkbmap us -variant colemak_dh"
 exec "kmonad $HOME/.config/kmonad/config.kbd"
 
-# Use pactl to adjust volume in PulseAudio.
-bindsym $mod+semicolon exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym $mod+y exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% 
-
 # kill focused window
 bindsym $mod+q kill
 
@@ -36,9 +32,13 @@ assign [class="steam*"] $ws5
 bindsym $mod+s exec "$HOME/.local/bin/screenshot"
 bindsym --release $mod+Shift+s exec "$HOME/.local/bin/screenshot select"
 
+# Use pactl to adjust volume in PulseAudio.
+bindsym $mod+semicolon exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod+y exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% 
+
 # brightness
-bindsym $mod+u exec "brightnessctl -e set 5%+"
-bindsym $mod+l exec "brightnessctl -e set 5%-"
+bindsym $mod+Shift+semicolon exec "brightnessctl -e set 5%+"
+bindsym $mod+Shift+y exec "brightnessctl -e set 5%-"
 
 # windows
 for_window [class=".*"] border pixel 3
