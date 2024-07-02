@@ -22,7 +22,7 @@ bindsym $mod+r exec --no-startup-id rofi -show drun
 bindsym $mod+Return exec alacritty
 
 # browser
-bindsym $mod+b exec TZ=UTC firefox
+bindsym $mod+z exec TZ=UTC firefox
 
 # steam settings
 for_window [class="steam*"] floating enable
@@ -79,7 +79,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+t fullscreen toggle
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
