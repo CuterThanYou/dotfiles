@@ -18,6 +18,7 @@
   "workbench.startupEditor": "none",
   "telemetry.telemetryLevel": "off",
   "editor.fontFamily": "Maple Mono, Symbols Nerd Font, monospace",
+  "editor.fontLigatures": true,
   "terminal.integrated.fontFamily": "'Maple Mono'",
   "workbench.editor.tabActionCloseVisibility": false,
   "window.menuBarVisibility": "toggle",
