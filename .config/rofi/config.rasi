@@ -96,7 +96,7 @@ listview {
     columns: 1;
 
     fixed-height: false;
-	require-input: true;
+/*	require-input: true; */
 }
 
 element {
