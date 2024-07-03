@@ -15,8 +15,9 @@ exec "kmonad $HOME/.config/kmonad/config.kbd"
 # kill focused window
 bindsym $mod+x kill
 
-# start a program launcher
+# rofi
 bindsym $mod+r exec --no-startup-id rofi -show drun
+bindsym $mod+Tab exec --no-startup-id rofi -show window
 
 # start a terminal
 bindsym $mod+Return exec alacritty
