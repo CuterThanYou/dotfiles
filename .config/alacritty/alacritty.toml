@@ -8,12 +8,14 @@ TERM= "xterm-256color"
 normal = { family = "Maple Mono", style = "Regular"}
 size = 12
 
+[cursor]
+unfocused_hollow = false
+
 [cursor.style]
 shape = "Underline"
 blinking = "Always"
 
 [window]
-
 #decorations = "None"
 padding               = { x = 5, y = 5 }
 opacity               = 0.5
