@@ -7,10 +7,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 HISTORY_IGNORE="(ls|ls*| *|)"
 setopt hist_ignore_all_dups
-setopt hist_ignore_all_dups
 setopt inc_append_history # write history immediately
-
-#bindkey -e
 
 # auto complete
 autoload -Uz compinit
@@ -31,5 +28,6 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 alias grep="grep --color=always"
 alias ls="ls --color=always"
+alias rm="rm -Iv"
 
 alias myconfig="git --git-dir=$HOME/dotfiles --work-tree=$HOME"
