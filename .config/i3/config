@@ -2,15 +2,17 @@ set $mod Mod4
 
 font pango: monospace 8
 
+# switch to colemak_dh
+exec "kmonad $HOME/.config/kmonad/config.kbd"
+#exec "setxkbmap us -variant colemak_dh"
+
+# startup program
 exec --no-startup-id dex --autostart --environment i3
 exec_always --no-startup-id feh --bg-fill $HOME/Pictures/purple_leaves.png
 exec_always --no-startup-id picom &
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id dunst
-
-#switch to colemak_dh
-#exec "setxkbmap us -variant colemak_dh"
-exec "kmonad $HOME/.config/kmonad/config.kbd"
+exec kdeconnectd
 
 # kill focused window
 bindsym $mod+x kill
