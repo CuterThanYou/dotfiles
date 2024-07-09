@@ -13,7 +13,6 @@
   "workbench.activityBar.location": "top",
   "workbench.sideBar.location": "right",
   "editor.wordWrap": "on",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "workbench.colorTheme": "Catppuccin Mocha",
   "workbench.startupEditor": "none",
   "telemetry.telemetryLevel": "off",
@@ -32,5 +31,6 @@
     "asvetliakov.vscode-neovim": 1
   },
   "comments.useRelativeTime": false,
-  "editor.lineNumbers": "relative"
+  "editor.lineNumbers": "relative",
+  "update.showReleaseNotes": false
 }
