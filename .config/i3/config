@@ -9,10 +9,12 @@ exec "kmonad $HOME/.config/kmonad/config.kbd"
 # startup program
 exec --no-startup-id dex --autostart --environment i3
 exec_always --no-startup-id feh --bg-fill $HOME/Pictures/purple_leaves.png
-exec_always --no-startup-id picom &
+exec_always --no-startup-id picom
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id dunst
+
 exec kdeconnectd
+exec redshift
 
 # kill focused window
 bindsym $mod+x kill
