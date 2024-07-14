@@ -28,7 +28,7 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 alias grep="grep --color=always"
 alias ls="ls --color=always"
-alias rm="rm -Iv"
+alias rm="rm -Ivr"
 alias mkdir="mkdir -pv"
 
 alias myconfig="git --git-dir=$HOME/dotfiles --work-tree=$HOME"
