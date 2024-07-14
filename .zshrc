@@ -34,5 +34,5 @@ alias mv="mv -iv"
 alias cp="cp -rv"
 alias scp="scp -r"
 
-alias nvim="vi"
+alias vi="nvim"
 alias myconfig="git --git-dir=$HOME/dotfiles --work-tree=$HOME"
