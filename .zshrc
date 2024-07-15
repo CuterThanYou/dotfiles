@@ -3,8 +3,8 @@ PROMPT='%B%F{magenta}%n '$'\U2740'' %f %F{blue}%~%f %F{green}${vcs_info_msg_0_}%
 
 # history
 HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=9737
+SAVEHIST=9737
 HISTORY_IGNORE="(ls|ls*| *|)"
 setopt hist_ignore_all_dups
 setopt inc_append_history # write history immediately
