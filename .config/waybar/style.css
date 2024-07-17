@@ -1,0 +1,52 @@
+@import "mocha.css";
+* {
+  	font-family: Nunito, Symbols Nerds Font;
+  	font-weight: bold;
+	font-size: 15px;
+}
+
+window#waybar {
+	background-color: transparent;
+	border: none;
+}
+
+.modules-right, .modules-center {
+	color: @lavender;
+	background: @basetran;
+	border-radius: 1rem;
+	padding: 0 0.7rem;
+}
+
+#workspaces {
+	background: @basetran;
+	border-radius: 1rem;
+	padding: 0.3rem;
+}
+#workspaces button {
+	color: @lavender;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+    padding: 0 0.7rem;
+}
+#workspaces button.active {
+	background: transparent;
+	color: @pink;
+}
+/* I hate this hover "feature" */
+#workspaces button:hover {
+	color: @lavender;
+	background: transparent;
+    box-shadow: inherit;
+    text-shadow: inherit;
+	background: inherit;
+    padding: 0 0.7rem;
+}
+#workspaces button:hover.active {
+	color: @pink;
+	background: transparent;
+    box-shadow: inherit;
+    text-shadow: inherit;
+	background: inherit;
+    padding: 0 0.7rem;
+}
