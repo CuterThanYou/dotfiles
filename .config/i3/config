@@ -31,7 +31,7 @@ bindsym $mod+z exec TZ=UTC firefox
 
 # steam settings
 for_window [class="steam*"] floating enable
-assign [class="steam*"] $ws5
+assign [class="steam*"] $ws4
 
 # screenshot
 bindsym $mod+s exec "$HOME/.local/bin/screenshot"
