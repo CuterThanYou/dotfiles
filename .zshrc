@@ -33,6 +33,8 @@ alias mkdir="mkdir -pv"
 alias mv="mv -iv"
 alias cp="cp -rv"
 alias scp="scp -r"
+alias df="df -h"
+alias du="du -h"
 
 alias vi="nvim"
 alias myconfig="git --git-dir=$HOME/dotfiles --work-tree=$HOME"
