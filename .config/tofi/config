@@ -1,0 +1,21 @@
+font = "Nunito Bold"
+font-size = 15
+
+width = 23%
+height = 20%
+
+text-color = #cdd6f4
+selection-color = #cba6f7
+background-color = #11111bbf
+border-color = #f5c2e7
+prompt-color = #b4befe
+input-color = #b4befe
+
+prompt-text = "❱ "
+
+border-width = 3
+outline-width = 0
+corner-radius = 25
+
+anchor = center
+history = false
