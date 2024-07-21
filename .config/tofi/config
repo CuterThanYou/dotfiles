@@ -19,3 +19,4 @@ corner-radius = 25
 
 anchor = center
 history = false
+drun-launch = true
