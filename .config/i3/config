@@ -16,18 +16,23 @@ exec_always --no-startup-id dunst
 exec kdeconnectd
 exec redshift
 
+# variables
+set $browser "TZ=UTC firefox"
+set $menu "rofi -show drun"
+set $terminal "alacritty"
+
 # kill focused window
 bindsym $mod+x kill
 
 # rofi
-bindsym $mod+r exec --no-startup-id rofi -show drun
+bindsym $mod+r exec --no-startup-id $menu
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec $terminal
 
 # browser
-bindsym $mod+z exec TZ=UTC firefox
+bindsym $mod+z exec $browser
 
 # steam settings
 for_window [class="steam*"] floating enable
@@ -93,6 +98,10 @@ bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
+
+# scratchpad
+bindsym $mod+a scratchpad show
+bindsym $mod+Shift+a move scratchpad
 
 set $ws1 "1"
 set $ws2 "2"
