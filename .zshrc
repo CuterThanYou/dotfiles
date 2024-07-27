@@ -12,6 +12,7 @@ setopt inc_append_history # write history immediately
 # auto complete
 autoload -Uz compinit
 compinit
+zstyle ':completion:*' menu select
 
 # version control
 autoload -Uz vcs_info
