@@ -36,5 +36,8 @@ alias scp="scp -r"
 alias df="df -h"
 alias du="du -h"
 
+alias yeet="doas pacman -Rns"
+alias goodnight="shutdown -h now"
+
 alias vi="nvim"
 alias myconfig="git --git-dir=$HOME/dotfiles --work-tree=$HOME"
