@@ -1,6 +1,19 @@
-set $mod Mod4
-
 font pango: monospace 8
+
+# windows
+for_window [class=".*"] border pixel 3
+
+gaps inner 15
+gaps outer 3
+
+# color variables at the bottom of the file
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $lavender $lavender
+client.focused_inactive  $overlay0 $base $text  $overlay0 $overlay0
+client.unfocused         $overlay0 $base $text  $overlay0 $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
 
 # switch to colemak_dh
 exec "kmonad $HOME/.config/kmonad/config.kbd"
@@ -20,6 +33,10 @@ exec redshift
 set $browser "TZ=UTC firefox"
 set $menu "rofi -show drun"
 set $terminal "alacritty"
+set $fileManager "thunar"
+
+# modifier key
+set $mod Mod4
 
 # kill focused window
 bindsym $mod+x kill
@@ -28,11 +45,10 @@ bindsym $mod+x kill
 bindsym $mod+r exec --no-startup-id $menu
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 
-# start a terminal
+# program keybinds
 bindsym $mod+Return exec $terminal
-
-# browser
 bindsym $mod+z exec $browser
+bindsym $mod+g exec $fileManager
 
 # steam settings
 for_window [class="steam*"] floating enable
@@ -51,12 +67,6 @@ bindsym $mod+y exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 # brightness
 bindsym $mod+Shift+semicolon exec "brightnessctl -e set 5%+"
 bindsym $mod+Shift+y exec "brightnessctl -e set 5%-"
-
-# windows
-for_window [class=".*"] border pixel 3
-
-gaps inner 15
-gaps outer 3
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -194,11 +204,3 @@ set $surface0  #313244
 set $base      #1e1e2e
 set $mantle    #181825
 set $crust     #11111b
-
-# target                 title     bg    text   indicator  border
-client.focused           $lavender $base $text  $lavender $lavender
-client.focused_inactive  $overlay0 $base $text  $overlay0 $overlay0
-client.unfocused         $overlay0 $base $text  $overlay0 $overlay0
-client.urgent            $peach    $base $peach $overlay0  $peach
-client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
-client.background        $base
