@@ -19,6 +19,10 @@ autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%b '
 
+# custom keybind
+bindkey "^[[H" beginning-of-line # Home key
+bindkey "^[[F" end-of-line # End key
+
 export PATH="$HOME/.local/bin/:$PATH"
 export EDITOR="nvim"
 export TERMINAL="alacritty"
