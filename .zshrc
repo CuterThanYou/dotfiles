@@ -1,5 +1,5 @@
 setopt PROMPT_SUBST
-PROMPT='%B%F{magenta}%n '$'\U2740'' %f %F{blue}%~%f %F{green}${vcs_info_msg_0_}%f%b%F{blue}'$'\U2771''%f '
+PROMPT='%B%F{magenta}%n '$'\U2740'' %f %F{blue}%~%f ${vcs_info_msg_0_}%b%F{blue}'$'\U2771''%f '
 
 # history
 HISTFILE=~/.zsh_history
@@ -17,7 +17,7 @@ zstyle ':completion:*' menu select
 # version control
 autoload -Uz vcs_info
 precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%b '
+zstyle ':vcs_info:git:*' formats '%F{green}%b%f '
 
 # custom keybind
 bindkey "^[[H" beginning-of-line # Home key
