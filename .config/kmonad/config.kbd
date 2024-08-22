@@ -19,6 +19,9 @@
 (defalias
   layr1 (layer-toggle symbol1)
   layr2 (layer-toggle symbol2)
+
+  arr1 (tap-macro = >)
+  arr2 (tap-macro - >)
 )
 
 
@@ -44,7 +47,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    !    @    #    $    %    ^    &    *    -    +    _    _    _
   _    `    ?    +    \_   ;    _    _    _    _    _    _    _
-  _    ,    _    _    _    _    _    _    _    _    _    _
+  _    , @arr1 @arr2  _    _    _    _    _    _    _    _
   _    _    _              _              _    _
 )
 
