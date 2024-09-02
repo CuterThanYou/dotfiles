@@ -1,0 +1,32 @@
+cache-file "~/.cache/newsboat/cache.db"
+#external-url-viewer "urlview"
+prepopulate-query-feeds yes
+
+#feedlist-format "%4i %n %11u%> %t"
+articlelist-format  "%4i %f %D %?T?|%-17T| ?%t"
+
+macro v set browser "setsid -f mpv --really-quiet --no-terminal" ; open-in-browser ; set browser "$BROWSER %u" # open link in mpv
+macro g set browser "amfora" ; open-in-browser ; set browser "$BROWSER %u" # open gemini link
+
+# colors			  foreground background
+color background         default default
+color article            default default
+color listnormal         white   default
+color listnormal_unread  yellow  default
+color listfocus_unread   yellow  black   bold
+color listfocus          default black   bold
+color end-of-text-marker black   default
+color info               blue    black   bold
+color hint-separator     default black
+color hint-description   default black
+color title              magenta default bold
+
+highlight feedlist "---.*---" green default bold # separator in urls
+
+highlight article "^(Feed|Title|Author|Link|Date): .+" blue default bold
+highlight article "^(Feed|Title|Author|Link|Date):" cyan default bold
+
+highlight article "\\((link|image|video)\\)" cyan default
+highlight article "https?://[^ ]+" color16 default
+highlight article "gemini?://[^ ]+" color16 default
+highlight article "\[[0-9]+\]" cyan default bold
