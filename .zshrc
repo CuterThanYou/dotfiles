@@ -44,5 +44,6 @@ alias du="du -h"
 alias yeet="doas pacman -Rns"
 alias goodnight="shutdown -h now"
 
+alias mpnv="mpv --no-video"
 alias vi="nvim"
 alias myconfig="git --git-dir=$HOME/dotfiles --work-tree=$HOME"
