@@ -6,6 +6,10 @@ vim.opt.tabstop = 4
 local map = vim.keymap.set
 map('v', '<C-c>', '"+y')
 map('n', '<C-v>', '"+p')
+map('v', '<Space>', '<C-w>')
+map('n', '<Space>', '<C-w>')
+
+vim.cmd.colorscheme('sorbet')
 
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#89b4fa' })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='#f5c2e7' })
@@ -13,8 +17,8 @@ vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#89b4fa' })
 
 -- restore cursor on exit
 vim.cmd [[
-:augroup RestoreCursorShapeOnExit
-:    autocmd!
-:    autocmd VimLeave * set guicursor=a:hor20
-:augroup END
+augroup RestoreCursorShapeOnExit
+    autocmd!
+    autocmd VimLeave * set guicursor=a:hor20
+augroup END
 ]]
