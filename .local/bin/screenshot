@@ -2,9 +2,9 @@
 output="$HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
 
 case "$1" in
-    "window") scrot "$output" --focused --border || exit ;;
+    "window") scrot "$output" --focused --border -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
     "select") scrot "$output" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
-    *) scrot "$output" || exit ;;
+    *) scrot "$output" -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
 esac
 
 notify-send "Screenshot taken."
