@@ -2,9 +2,9 @@ setopt PROMPT_SUBST
 PROMPT='%B%F{magenta}%n '$'\U2740'' %f %F{blue}%~%f ${vcs_info_msg_0_}%b%F{blue}'$'\U2771''%f '
 
 # history
-HISTFILE=~/.zsh_history
-HISTSIZE=9737
-SAVEHIST=9737
+HISTFILE=~/.cache/zsh_history
+HISTSIZE=97379
+SAVEHIST=97379
 HISTORY_IGNORE="(ls|ls *| *|)"
 setopt hist_ignore_all_dups
 setopt inc_append_history # write history immediately
@@ -44,6 +44,7 @@ alias du="du -h"
 alias yeet="doas pacman -Rns"
 alias goodnight="shutdown -h now"
 
+alias mpv="mpv --terminal=no"
 alias mpnv="mpv --no-video"
 alias vi="nvim"
 alias myconfig="git --git-dir=$HOME/dotfiles --work-tree=$HOME"
