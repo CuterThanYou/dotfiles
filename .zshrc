@@ -49,6 +49,6 @@ alias goodnight="shutdown -h now"
 
 alias lf=lfcd
 alias mpv="mpv --terminal=no"
-alias mpnv="mpv --no-video"
+alias mpnv="mpv --terminal=yes --no-video"
 alias vi="nvim"
 alias myconfig="git --git-dir=$HOME/dotfiles --work-tree=$HOME"
