@@ -23,6 +23,9 @@ zstyle ':vcs_info:git:*' formats '%F{green}%b%f '
 bindkey "^[[H" beginning-of-line # Home key
 bindkey "^[[F" end-of-line # End key
 
+# go to last dir on lf exit
+lfcd() { cd "$(command lf -print-last-dir"$@")" }
+
 export PATH="$HOME/.local/bin/:$PATH"
 export EDITOR="nvim"
 export TERMINAL="alacritty"
@@ -44,6 +47,7 @@ alias du="du -h"
 alias yeet="doas pacman -Rns"
 alias goodnight="shutdown -h now"
 
+alias lf=lfcd
 alias mpv="mpv --terminal=no"
 alias mpnv="mpv --no-video"
 alias vi="nvim"
