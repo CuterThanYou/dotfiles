@@ -17,7 +17,7 @@ blinking = "Always"
 
 [window]
 #decorations = "None"
-padding               = { x = 7, y = 7 }
+padding               = { x = 9, y = 9 }
 opacity               = 0.5
 #blur = true
 #decorations_theme_varient = "Dark"
