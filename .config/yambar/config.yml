@@ -1,0 +1,235 @@
+base: &base 1e1e2ebf
+mantle: &mantle 181825ff
+crust: &crust 11111bff
+
+text: &text cdd6f4ff
+subtext0: &subtext0 a6adc8ff
+subtext1: &subtext1 bac2deff
+
+surface0: &surface0 313244ff
+surface1: &surface1 45475aff
+surface2: &surface2 585b70ff
+
+overlay0: &overlay0 6c7086ff
+overlay1: &overlay1 7f849cff
+overlay2: &overlay2 9399b2ff
+
+blue: &blue 89b4faff
+lavender: &lavender b4befeff
+sapphire: &sapphire 74c7ecff
+sky: &sky 89dcebff
+teal: &teal 94e2d5ff
+green: &green a6e3a1ff
+yellow: &yellow f9e2afff
+peach: &peach fab387ff
+maroon: &maroon eba0acff
+red: &red f38ba8ff
+mauve: &mauve cba6f7ff
+pink: &pink f5c2e7ff
+flamingo: &flamingo f2cdcdff
+rosewater: &rosewater f5e0dcff
+transparent: &transparent 00000000
+
+font: &font Nunito:style=Bold:size=16
+icon: &icon "Symbols Nerd Font:size=16"
+iconLg: &iconLg "Symbols Nerd Font:size=20"
+
+margin: &margin {margin: 5}
+marginIcon: &marginIcon {left-margin: 3}
+marginLeftCorner: &marginLeftCorner {left-margin: 11, right-margin: 5}
+marginRightCorner: &marginRightCorner {left-margin: 7, right-margin: 11}
+
+underline_blue: &underline_blue {deco: {underline: {size: 2, color: *blue}}}
+underline_lavender: &underline_lavender {deco: {underline: {size: 2, color: *lavender}}}
+underline_sapphire: &underline_sapphire {deco: {underline: {size: 2, color: *sapphire}}}
+underline_green: &underline_green {deco: {underline: {size: 2, color: *green}}}
+underline_yellow: &underline_yellow {deco: {underline: {size: 2, color: *yellow}}}
+underline_red: &underline_red {deco: {underline: {size: 2, color: *red}}}
+underline_pink: &underline_pink {deco: {underline: {size: 2, color: *pink}}}
+underline_mauve: &underline_mauve {deco: {underline: {size: 2, color: *mauve}}}
+underline_flamingo: &underline_flamingo {deco: {underline: {size: 2, color: *flamingo}}}
+
+# on-click function
+brightnessCtl: &brightnessCtl {on-click: {wheel-up: brightnessctl -e set 5%+, wheel-down: brightnessctl -e set 5%-}}
+volumeCtl: &volumeCtl {on-click: {left: wpctl set-mute @DEFAULT_SINK@ toggle, wheel-up: wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+, wheel-down: wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-}}
+openMenu: &openMenu {on-click: {left: tofi-drun}}
+turnoffDisplay: &turnoffDisplay {on-click: {left: hyprctl dispatch dpms off}}
+
+bar:
+  location: top
+  font: *font
+  font-shaping: none
+  background: *transparent
+  foreground: *text
+
+  height: 35
+  spacing: 2
+  border:
+    width: 0
+    top-margin: 0
+    bottom-width: 0
+    color: *transparent
+
+  left:
+    - label:
+        content:
+          - string: {text: "", font: *iconLg, foreground: *pink, <<: [*marginLeftCorner, *openMenu]}
+          - string: {text: "|", foreground: *overlay0}
+
+    - foreign-toplevel:
+        content:
+          map:
+            conditions:
+              ~activated: {empty: {}}
+              activated:
+                - string: {text: "{title}", <<: [*margin, *underline_mauve]}
+
+  center:
+    # Hyprsoy (with capital h) workspace
+    - script:
+        path: /usr/bin/yambar-hyprland-wses
+        anchors:
+          - common: &common {margin: 7} # TODO on-click to go to workspace
+          - focused: &focused {foreground: *pink, <<: *common}
+          - active: &active {foreground: *blue, <<: *common}
+          - empty: &empty {foreground: *overlay0, <<: *common}
+          - urgent: &urgent {foreground: *flamingo, <<: [*common, *underline_red]}
+
+          - string: &ws1 {text: "1"}
+          - string: &ws2 {text: "2"}
+          - string: &ws3 {text: "3"}
+          - string: &ws4 {text: "4"}
+          - string: &ws5 {text: "5"}
+          - string: &ws6 {text: "6"}
+          - string: &ws7 {text: "7"}
+          - string: &ws8 {text: "8"}
+          - string: &ws9 {text: "9"}
+        content:
+          list:
+            spacing: 0
+            items:
+              - map:
+                  default: {string: {<<: [*ws1, *empty]}}
+                  conditions:
+                    workspace_1_focused: {string: {<<: [*ws1, *focused]}}
+                    workspace_1_windows != 0: {string: {<<: [*ws1, *active]}}
+              - map:
+                  default: {string: {<<: [*ws2, *empty]}}
+                  conditions:
+                    workspace_2_focused: {string: {<<: [*ws2, *focused]}}
+                    workspace_2_windows != 0: {string: {<<: [*ws2, *active]}}
+              - map:
+                  default: {string: {<<: [*ws3, *empty]}}
+                  conditions:
+                    workspace_3_focused: {string: {<<: [*ws3, *focused]}}
+                    workspace_3_windows != 0: {string: {<<: [*ws3, *active]}}
+              - map:
+                  default: {string: {<<: [*ws4, *empty]}}
+                  conditions:
+                    workspace_4_focused: {string: {<<: [*ws4, *focused]}}
+                    workspace_4_windows != 0: {string: {<<: [*ws4, *active]}}
+              - map:
+                  default: {string: {<<: [*ws5, *empty]}}
+                  conditions:
+                    workspace_5_focused: {string: {<<: [*ws5, *focused]}}
+                    workspace_5_windows != 0: {string: {<<: [*ws5, *active]}}
+              - map:
+                  default: {string: {<<: [*ws6, *empty]}}
+                  conditions:
+                    workspace_6_focused: {string: {<<: [*ws6, *focused]}}
+                    workspace_6_windows != 0: {string: {<<: [*ws6, *active]}}
+              - map:
+                  default: {string: {<<: [*ws7, *empty]}}
+                  conditions:
+                    workspace_7_focused: {string: {<<: [*ws7, *focused]}}
+                    workspace_7_windows != 0: {string: {<<: [*ws7, *active]}}
+              - map:
+                  default: {string: {<<: [*ws8, *empty]}}
+                  conditions:
+                    workspace_8_focused: {string: {<<: [*ws8, *focused]}}
+                    workspace_8_windows != 0: {string: {<<: [*ws8, *active]}}
+              - map:
+                  default: {string: {<<: [*ws9, *empty]}}
+                  conditions:
+                    workspace_9_focused: {string: {<<: [*ws9, *focused]}}
+                    workspace_9_windows != 0: {string: {<<: [*ws9, *active]}}
+
+  right:
+    - removables:
+        content:
+          map:
+            conditions:
+              ~mounted:
+                  list:
+                    spacing: 0
+                    on-click: udisksctl mount -b {device}
+                    items:
+                      - string: {text: "󰕓",foreground: *red, <<: [*marginIcon, *underline_flamingo]}
+                      - string: {text: "{label}", <<: [*margin, *underline_flamingo]}
+              mounted:
+                  list:
+                    spacing: 0
+                    on-click: udisksctl unmount -b {device}
+                    items:
+                      - string: {text: "", foreground: *green, <<: [*marginIcon, *underline_flamingo]}
+                      - string: {text: "{label}", <<: [*margin, *underline_flamingo]}
+
+
+    - pipewire:
+        content:
+          map:
+            conditions:
+              type == "sink":
+                map:
+                  conditions:
+                    muted:
+                      - string: {text: "󰖁", font: *icon, foreground: *green , <<: [*volumeCtl, *margin, *underline_green]}
+                    ~muted:
+                      list:
+                        spacing: 0
+                        <<: *volumeCtl
+                        items:
+                          - string: {text: "󰕾", font: *icon, foreground: *green, <<: [*marginIcon, *underline_green]}
+                          - string: {text: "{cubic_volume}%", <<: [*margin, *underline_green]}
+
+    - backlight:
+        name: acpi_video0
+        content:
+          list:
+            spacing: 0
+            <<: *brightnessCtl
+            items:
+              - string: {text: "", font: *icon, foreground: *yellow, <<: [*marginIcon, *underline_yellow]}
+              - string: {text: "{percent}%", <<: [*margin, *underline_yellow]}
+
+    - network:
+        poll-interval: 1000
+        content:
+          map:
+            default: {empty: {}}
+            conditions:
+              name == wlan0:
+                map:
+                  default:
+                    list:
+                      spacing: 0
+                      items:
+                        - string: {text: "", font: *icon, foreground: *blue, <<: [*marginIcon, *underline_blue]}
+                        - string: {text: "{ssid}", <<: [*margin, *underline_blue]}
+                  conditions:
+                    state == down: {string: {text: "no wifi"}}
+
+    - clock:
+        date-format: "%b %d"
+        content:
+          list:
+            spacing: 0
+            items:
+              - string: {text: "", font: *icon, foreground: *pink, <<: [*marginIcon, *underline_pink]}
+              - string: {text: "{time}", <<: [*margin, *underline_pink]}
+              - string: {text: "󰸘", font: *icon, foreground: *red, <<: [*marginIcon, *underline_pink]}
+              - string: {text: "{date}", <<: [*margin, *underline_pink]}
+
+    - label:
+        content:
+          string: {text: "", font: *icon, foreground: *red, <<: [*marginRightCorner, *underline_red, *turnoffDisplay]}
