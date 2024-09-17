@@ -210,14 +210,19 @@ bar:
             conditions:
               name == wlan0:
                 map:
+                  conditions:
+                    ssid == "":
+                      list:
+                        spacing: 0
+                        items:
+                          - string: {text: "", font: *icon, foreground: *blue, <<: [*marginIcon, *underline_blue]}
+                          - string: {text: "Disconnected", foreground: *pink, <<: [*margin, *underline_blue]}
                   default:
                     list:
                       spacing: 0
                       items:
                         - string: {text: "", font: *icon, foreground: *blue, <<: [*marginIcon, *underline_blue]}
                         - string: {text: "{ssid}", <<: [*margin, *underline_blue]}
-                  conditions:
-                    state == down: {string: {text: "no wifi"}}
 
     - clock:
         date-format: "%b %d"
