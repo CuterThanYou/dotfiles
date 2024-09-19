@@ -82,7 +82,7 @@ bar:
             conditions:
               ~activated: {empty: {}}
               activated:
-                - string: {text: "{title}", <<: [*margin, *underline_mauve]}
+                - string: {text: "{title}", max: 57, <<: [*margin, *underline_mauve]}
 
   center:
     # Hyprsoy (with capital h) workspace
@@ -165,14 +165,14 @@ bar:
                     on-click: udisksctl mount -b {device}
                     items:
                       - string: {text: "󰕓",foreground: *red, <<: [*marginIcon, *underline_flamingo]}
-                      - string: {text: "{label}", <<: [*margin, *underline_flamingo]}
+                      - string: {text: "{label}", max: 15, <<: [*margin, *underline_flamingo]}
               mounted:
                   list:
                     spacing: 0
                     on-click: udisksctl unmount -b {device}
                     items:
                       - string: {text: "", foreground: *green, <<: [*marginIcon, *underline_flamingo]}
-                      - string: {text: "{label}", <<: [*margin, *underline_flamingo]}
+                      - string: {text: "{label}", max: 15, <<: [*margin, *underline_flamingo]}
 
 
     - pipewire:
