@@ -31,4 +31,6 @@ hide_when_typing = true
 [keyboard]
 bindings = [
 	{key="Return",mods="Super|Shift",action="SpawnNewInstance"},
+	{key="i",mods="Control",action="ScrollPageUp"},
+	{key="e",mods="Control",action="ScrollPageDown"},
 ]
