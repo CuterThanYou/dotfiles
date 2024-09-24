@@ -9,7 +9,7 @@ map('n', '<C-v>', '"+p')
 map('v', '<Space>', '<C-w>')
 map('n', '<Space>', '<C-w>')
 
-vim.cmd.colorscheme('retrobox')
+vim.cmd.colorscheme('catppuccin_mocha')
 
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#89b4fa' })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='#f5c2e7' })
