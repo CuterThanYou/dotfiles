@@ -1,5 +1,5 @@
 #! /bin/sh
-output="$HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png"
+output="$SCREENSHOTS_DIR/%Y%m%d%H%M-screenshot.png"
 
 case "$1" in
     "window") scrot "$output" --focused --border -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
