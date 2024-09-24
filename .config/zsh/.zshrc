@@ -23,6 +23,7 @@ precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%F{green}%b%f '
 
 # custom keybind
+bindkey '^R' history-incremental-search-backward
 bindkey "^[[H" beginning-of-line # Home key
 bindkey "^[[F" end-of-line # End key
 
