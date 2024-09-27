@@ -30,6 +30,11 @@ bindkey "^[[F" end-of-line # End key
 # go to last dir on lf exit
 lfcd() { cd "$(command lf -print-last-dir"$@")" }
 
+# git remove timezone
+export GIT_AUTHOR_DATE="$(date -u +%F)T00:00:00+0000"
+#export GIT_AUTHOR_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"
+
 # need source to be at last
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
