@@ -22,10 +22,24 @@ autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%F{green}%b%f '
 
-# custom keybind
+# keybinds
 bindkey '^R' history-incremental-search-backward
 bindkey "^[[H" beginning-of-line # Home key
 bindkey "^[[F" end-of-line # End key
+
+bindkey -v # vi mode
+export KEYTIMEOUT=1
+
+# Change cursor shape for different vi modes.
+zle-keymap-select() {
+	if [[ $KEYMAP == vicmd ]]; then
+		echo -ne "\e[2 q"
+	else
+		echo -ne "\e[3 q"
+	fi
+}
+precmd_functions+=(zle-keymap-select)
+zle -N zle-keymap-select
 
 # go to last dir on lf exit
 lfcd() { cd "$(command lf -print-last-dir"$@")" }
