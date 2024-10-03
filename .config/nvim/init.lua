@@ -13,9 +13,9 @@ map('n', '<Space>', '<C-w>')
 -- color
 vim.cmd.colorscheme('catppuccin_mocha')
 vim.api.nvim_set_hl(0, 'Normal', {ctermbg = 'NONE'}) -- use terminal background
-vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#89b4fa' })
-vim.api.nvim_set_hl(0, 'LineNr', { fg='#f5c2e7' })
-vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#89b4fa' })
+vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#cba6f7' })
+vim.api.nvim_set_hl(0, 'LineNr', { fg='#74c7ec' })
+vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#cba6f7' })
 
 -- restore cursor on exit (not needed if u use vi mode in your interactive shell)
 --[[
