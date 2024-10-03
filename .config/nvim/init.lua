@@ -17,10 +17,12 @@ vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#89b4fa' })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='#f5c2e7' })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#89b4fa' })
 
--- restore cursor on exit
-vim.cmd [[
-augroup RestoreCursorShapeOnExit
-    autocmd!
-    autocmd VimLeave * set guicursor=a:hor20
-augroup END
-]]
+-- restore cursor on exit (not needed if u use vi mode in your interactive shell)
+--[[
+vim.api.nvim_create_autocmd({ 'VimLeave', 'VimSuspend' }, {
+ 	pattern = {'*'},
+ 	callback = function()
+ 		vim.o.guicursor = "a:hor20"
+ 	end
+})
+]]--
