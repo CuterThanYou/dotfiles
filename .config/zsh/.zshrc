@@ -31,6 +31,7 @@ bindkey -v # vi mode
 export KEYTIMEOUT=1
 
 # Change cursor shape for different vi modes.
+# 1 = blinking block, 2 = block, 3 = blinking underline _, 4 = underline, 5 = blinking beam |, 6 = beam
 zle-keymap-select() {
 	if [[ $KEYMAP == vicmd ]]; then
 		echo -ne "\e[2 q"
@@ -41,8 +42,15 @@ zle-keymap-select() {
 precmd_functions+=(zle-keymap-select)
 zle -N zle-keymap-select
 
-# go to last dir on lf exit
-lfcd() { cd "$(command lf -print-last-dir"$@")" }
+# go to last dir on yazi exit, Q to keep the same dir
+function yz() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	command rm -f -- "$tmp" # command to ignore alias
+}
 
 # git remove timezone
 export GIT_AUTHOR_DATE="$(date -u +%F)T00:00:00+0000"
