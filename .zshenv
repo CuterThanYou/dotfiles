@@ -18,6 +18,9 @@ export SCREENSHOTS_DIR="$HOME/media/screenshots"
 # home clean up export
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup" 
+export STACK_XDG=1
+export GOPATH="$XDG_DATA_HOME/go"
+export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
 #export GNUPGHOME="$XDG_DATA_HOME/gnupg"
@@ -29,3 +32,4 @@ export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 
 # other export
 export QT_QPA_PLATFORMTHEME="gtk2" # qt to use gtk2
+[ -f "$XDG_DATA_HOME/cargo/env" ] && source "$XDG_DATA_HOME/cargo/env" # cargo to path, not needed on arch

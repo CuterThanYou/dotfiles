@@ -30,24 +30,24 @@ flamingo: &flamingo f2cdcdff
 rosewater: &rosewater f5e0dcff
 transparent: &transparent 00000000
 
-font: &font Nunito:style=Bold:size=26
-icon: &icon "Symbols Nerd Font:size=26"
-iconLg: &iconLg "Symbols Nerd Font:size=35"
+font: &font Nunito:style=Bold:size=16
+icon: &icon "Symbols Nerd Font:size=16"
+iconLg: &iconLg "Symbols Nerd Font:size=20"
 
-margin: &margin {margin: 11}
-marginIcon: &marginIcon {left-margin: 7}
-marginLeftCorner: &marginLeftCorner {left-margin: 21, right-margin: 11}
-marginRightCorner: &marginRightCorner {left-margin: 11, right-margin: 21}
+margin: &margin {margin: 5}
+marginIcon: &marginIcon {left-margin: 3}
+marginLeftCorner: &marginLeftCorner {left-margin: 11, right-margin: 5}
+marginRightCorner: &marginRightCorner {left-margin: 7, right-margin: 11}
 
-underline_blue: &underline_blue {deco: {underline: {size: 3, color: *blue}}}
-underline_lavender: &underline_lavender {deco: {underline: {size: 3, color: *lavender}}}
-underline_sapphire: &underline_sapphire {deco: {underline: {size: 3, color: *sapphire}}}
-underline_green: &underline_green {deco: {underline: {size: 3, color: *green}}}
-underline_yellow: &underline_yellow {deco: {underline: {size: 3, color: *yellow}}}
-underline_red: &underline_red {deco: {underline: {size: 3, color: *red}}}
-underline_pink: &underline_pink {deco: {underline: {size: 3, color: *pink}}}
-underline_mauve: &underline_mauve {deco: {underline: {size: 3, color: *mauve}}}
-underline_flamingo: &underline_flamingo {deco: {underline: {size: 3, color: *flamingo}}}
+underline_blue: &underline_blue {deco: {underline: {size: 2, color: *blue}}}
+underline_lavender: &underline_lavender {deco: {underline: {size: 2, color: *lavender}}}
+underline_sapphire: &underline_sapphire {deco: {underline: {size: 2, color: *sapphire}}}
+underline_green: &underline_green {deco: {underline: {size: 2, color: *green}}}
+underline_yellow: &underline_yellow {deco: {underline: {size: 2, color: *yellow}}}
+underline_red: &underline_red {deco: {underline: {size: 2, color: *red}}}
+underline_pink: &underline_pink {deco: {underline: {size: 2, color: *pink}}}
+underline_mauve: &underline_mauve {deco: {underline: {size: 2, color: *mauve}}}
+underline_flamingo: &underline_flamingo {deco: {underline: {size: 2, color: *flamingo}}}
 
 # on-click function
 brightnessCtl: &brightnessCtl {on-click: {wheel-up: brightnessctl -e set 5%+, wheel-down: brightnessctl -e set 5%-}}
@@ -62,7 +62,7 @@ bar:
   background: *transparent
   foreground: *text
 
-  height: 67
+  height: 35
   spacing: 2
   border:
     width: 0
@@ -87,9 +87,9 @@ bar:
   center:
     # Hyprsoy (with capital h) workspace
     - script:
-        path: ~/.local/share/cargo/bin/yambar-hyprland-wses
+        path: /usr/bin/yambar-hyprland-wses
         anchors:
-          - common: &common {margin: 15} # TODO on-click to go to workspace
+          - common: &common {margin: 7} # TODO on-click to go to workspace
           - focused: &focused {foreground: *pink, <<: *common}
           - active: &active {foreground: *blue, <<: *common}
           - empty: &empty {foreground: *overlay0, <<: *common}
@@ -193,7 +193,7 @@ bar:
                           - string: {text: "{cubic_volume}%", <<: [*margin, *underline_green]}
 
     - backlight:
-        name: apple-panel-bl
+        name: acpi_video0
         content:
           list:
             spacing: 0
@@ -202,53 +202,13 @@ bar:
               - string: {text: "", font: *icon, foreground: *yellow, <<: [*marginIcon, *underline_yellow]}
               - string: {text: "{percent}%", <<: [*margin, *underline_yellow]}
 
-    - battery:
-        name: macsmc-battery
-        poll-interval: 50000
-        anchors:
-          discharging: &discharging
-            list:
-              spacing: 0
-              items:
-                - ramp:
-                    tag: capacity
-                    items:
-                      - string: {text: '', font: *icon, foreground: *red, <<: [*marginIcon, *underline_mauve]}
-                      - string: {text: '', font: *icon, foreground: *red, <<: [*marginIcon, *underline_mauve]}
-                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
-                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
-                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
-                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
-                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
-                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
-                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
-                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
-                - string: {text: "{capacity}%", <<: [*margin, *underline_mauve]}
-        content:
-          map:
-            default: {empty: {}}
-            conditions:
-              name == macsmc-battery:
-                map:
-                  conditions:
-                    state == unknown:
-                      <<: *discharging
-                    state == discharging:
-                      <<: *discharging
-                    state == charging: &charging
-                      list:
-                        spacing: 0
-                        items:
-                          - string: {text: '', foreground: *green, <<: [*marginIcon, *underline_mauve]}
-                          - string: {text: "{capacity}%", <<: [*margin, *underline_mauve]}
-
     - network:
         poll-interval: 1000
         content:
           map:
             default: {empty: {}}
             conditions:
-              name == wlp1s0f0:
+              name == wlan0:
                 map:
                   conditions:
                     ssid == "":

@@ -2,6 +2,7 @@ vim.wo.number = true
 vim.opt.relativenumber = true
 vim.opt.shiftwidth = 3
 vim.opt.tabstop = 3
+vim.opt.mouse="" -- there is no palm rejection :/
 
 -- keybinding
 local map = vim.keymap.set

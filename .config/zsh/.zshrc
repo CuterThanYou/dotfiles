@@ -50,5 +50,6 @@ export GIT_AUTHOR_DATE="$(date -u +%F)T00:00:00+0000"
 export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"
 
 # need source to be at last
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# /usr/share/zsh/plugins/* for arch
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh

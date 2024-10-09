@@ -1,5 +1,5 @@
 (defcfg
-  input  (device-file "/dev/input/by-id/usb-SEM_USB_Keyboard-event-kbd")
+  input  (device-file "/dev/input/by-path/platform-23510c000.spi-cs-0-event-kbd")
   output (uinput-sink "My KMonad output")
 
   fallthrough true
@@ -12,7 +12,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rctl
+  lctl lalt lmet           spc            rmet ralt
 )
 
 
@@ -30,7 +30,7 @@
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]    \
   bspc a    r    s    t    g    m    n    e    i    o    '    ret
   lsft x    c    d    v    z    k    h    ,    .   rsft  /
-  lctl lmet lalt           spc            @layr1 rctl
+  lctl lalt lmet           spc            @layr1 ralt
 )
 
 

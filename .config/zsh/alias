@@ -16,4 +16,4 @@ alias goodnight="shutdown -h now"
 alias lf=lfcd
 alias mpnv="mpv --no-video"
 alias vi="nvim"
-alias myconfig="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias myconfig="git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME"
