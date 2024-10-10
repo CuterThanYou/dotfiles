@@ -36,18 +36,18 @@
 
 (deflayer symbol1
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  esc  1    2    3    4    5    6    7    8    9    0    \    _    _
+  esc  1    2    3    4    5    6    7    8    9    0    _    _    _
   _    ~    /    =    -    :    home left down up right  end  _
-@layr2 .    [    \(   {    <    >    }    \)   ]  @layr2 caps
+@layr2 .    [    \(   {    \    _    }    \)   ]  @layr2 caps
   _    _    _              _              _    _
 )
 
 
 (deflayer symbol2
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    !    @    #    $    %    ^    &    *    -    +    |    _    _
+  _    !    @    #    $    %    ^    &    *    -    +    _    _    _
   _    `    ?    +    \_   ;    _    _    _    _    _    _    _
-  _    , @arr1 @arr2  _    _    _    _    _    _    _    _
+  _    , @arr1 @arr2  <    |    _    >    _    _    _    _
   _    _    _              _              _    _
 )
 
