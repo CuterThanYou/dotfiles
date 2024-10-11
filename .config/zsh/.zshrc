@@ -42,16 +42,6 @@ zle-keymap-select() {
 precmd_functions+=(zle-keymap-select)
 zle -N zle-keymap-select
 
-# go to last dir on yazi exit, Q to keep the same dir
-function yz() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	command rm -f -- "$tmp" # command to ignore alias
-}
-
 # git remove timezone
 export GIT_AUTHOR_DATE="$(date -u +%F)T00:00:00+0000"
 #export GIT_AUTHOR_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"

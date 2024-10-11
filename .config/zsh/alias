@@ -1,5 +1,18 @@
 #! /bin/sh
 
+# go to last dir on yazi exit, Q to keep the same dir
+yz() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	command rm -f -- "$tmp" # command to ignore alias
+}
+
+# go to last dir on lf exit
+lfcd() { cd "$(command lf -print-last-dir"$@")" }
+
 alias grep="grep --color=always"
 alias ls="ls --color=always"
 alias rm="rm -Ivr"
