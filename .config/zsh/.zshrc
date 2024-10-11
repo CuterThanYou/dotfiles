@@ -59,5 +59,7 @@ export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"
 
 # need source to be at last
 # /usr/share/zsh/plugins/* for arch
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null \
+	|| source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null \
+	|| source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
