@@ -54,6 +54,7 @@ brightnessCtl: &brightnessCtl {on-click: {wheel-up: brightnessctl -e set 5%+, wh
 volumeCtl: &volumeCtl {on-click: {left: wpctl set-mute @DEFAULT_SINK@ toggle, wheel-up: wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+, wheel-down: wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-}}
 openMenu: &openMenu {on-click: {left: tofi-drun}}
 turnoffDisplay: &turnoffDisplay {on-click: {left: hyprctl dispatch dpms off}}
+displayDate: &displayDate {on-click: {left: ~/.config/yambar/notiDate}}
 
 bar:
   location: top
@@ -269,11 +270,12 @@ bar:
         content:
           list:
             spacing: 0
+            <<: *displayDate
             items:
               - string: {text: "", font: *icon, foreground: *pink, <<: [*marginIcon, *underline_pink]}
               - string: {text: "{time}", <<: [*margin, *underline_pink]}
-              - string: {text: "󰸘", font: *icon, foreground: *red, <<: [*marginIcon, *underline_pink]}
-              - string: {text: "{date}", <<: [*margin, *underline_pink]}
+              #- string: {text: "󰸘", font: *icon, foreground: *red, <<: [*marginIcon, *underline_pink]}
+              #- string: {text: "{date}", <<: [*margin, *underline_pink]}
 
     - label:
         content:
