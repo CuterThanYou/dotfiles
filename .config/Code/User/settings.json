@@ -16,7 +16,7 @@
   "workbench.colorTheme": "Catppuccin Mocha",
   "workbench.startupEditor": "none",
   "telemetry.telemetryLevel": "off",
-  "editor.fontFamily": "Maple Mono, Symbols Nerd Font, monospace",
+  "editor.fontFamily": "Maple Mono, Symbols Nerd Font, Maple Mono NF, monospace",
   "editor.fontLigatures": true,
   "terminal.integrated.fontFamily": "'Maple Mono'",
   "workbench.editor.tabActionCloseVisibility": false,
@@ -32,5 +32,6 @@
   },
   "comments.useRelativeTime": false,
   "editor.lineNumbers": "relative",
-  "update.showReleaseNotes": false
+  "update.showReleaseNotes": false,
+  "editor.tabSize": 3
 }
