@@ -50,7 +50,7 @@ underline_mauve: &underline_mauve {deco: {underline: {size: 3, color: *mauve}}}
 underline_flamingo: &underline_flamingo {deco: {underline: {size: 3, color: *flamingo}}}
 
 # on-click function
-brightnessCtl: &brightnessCtl {on-click: {wheel-up: brightnessctl -e set 5%+, wheel-down: brightnessctl -e set 5%-}}
+brightnessCtl: &brightnessCtl {on-click: {left: ~/.config/hypr/blue-light-filter-toggle, wheel-up: brightnessctl -e set 5%+, wheel-down: brightnessctl -e set 5%-}}
 volumeCtl: &volumeCtl {on-click: {left: wpctl set-mute @DEFAULT_SINK@ toggle, wheel-up: wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+, wheel-down: wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-}}
 openMenu: &openMenu {on-click: {left: tofi-drun}}
 powerCtl: &powerCtl {on-click: {left: loginctl lock-session}}
