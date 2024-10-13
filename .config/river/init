@@ -8,7 +8,7 @@ riverctl spawn "kmonad ~/.config/kmonad/config.kbd"
 riverctl spawn "wlr-randr --output eDP-1 --scale 2.0"
 
 # start up programs
-riverctl spawn "yambar -c ~/.config/yambar/river.yml" # status bar
+riverctl spawn "killall yambar ; yambar -c ~/.config/yambar/river.yml" # status bar
 riverctl spawn "dunst" # notification daemon
 riverctl spawn "hyprpaper" # wallpaper
 
@@ -57,6 +57,9 @@ do
     # focused window to be on different tags at the same time
     riverctl map normal Super+Alt+Shift "$kb" toggle-view-tags $tags
 done
+
+# reload config
+riverctl map normal Super+Shift R spawn "~/.config/river/init"
 
 # change size
 riverctl map normal Super N send-layout-cmd rivertile "main-ratio -0.05"
