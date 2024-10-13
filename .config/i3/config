@@ -51,7 +51,7 @@ for_window [class="steam_app_*"] move container to workspace 2 , focus
 assign [class="steam*"] $ws4
 
 # screenshot
-bindsym $mod+s exec "$HOME/.local/bin/screenshot"
+bindsym $mod+s exec "$HOME/.local/bin/screenshot full"
 bindsym --release $mod+Shift+s exec "$HOME/.local/bin/screenshot select"
 
 # Use pactl to adjust volume in PulseAudio.
