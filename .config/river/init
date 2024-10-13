@@ -1,0 +1,159 @@
+#!/bin/sh
+
+# set colemak-dh
+riverctl spawn "kmonad ~/.config/kmonad/config.kbd"
+#riverctl keyboard-layout -variant colemak_dh us # just for fallback
+
+# set fractional scaling
+riverctl spawn "wlr-randr --output eDP-1 --scale 2.0"
+
+# start up programs
+riverctl spawn "yambar -c ~/.config/yambar/river.yml" # status bar
+riverctl spawn "dunst" # notification daemon
+riverctl spawn "hyprpaper" # wallpaper
+
+# touchpad settings
+riverctl input pointer-1452-641-Apple_Internal_Keyboard_/_Trackpad natural-scroll disabled
+
+# variables
+menu=tofi-drun
+
+# keybinds (colemak-dh)
+riverctl map normal Super Return spawn foot
+riverctl map normal Super X close
+riverctl map normal Super+Shift Return zoom # move focused window to main
+riverctl map normal Super Space toggle-float
+riverctl map normal Super T toggle-fullscreen
+
+# program binds
+riverctl map normal Super R spawn "pkill $menu || $menu" # toggle
+riverctl map normal Super Z spawn "TZ=UTC $BROWSER"
+
+# Navigations, move focus
+riverctl map normal Super E focus-view next
+riverctl map normal Super I focus-view previous
+
+# swap with move focus bind + shift
+riverctl map normal Super+Shift E swap next
+riverctl map normal Super+Shift I swap previous
+
+# q w f p b j l u for tags(not workspaces) shortcuts
+set -- q w f p b j l u
+# ^ have to set array with positional arguments since posix sh doesn't have array
+for i in $(seq 0 7)
+do
+    tags=$((1 << i))
+	 kb=$(eval echo \$$((i + 1)))
+
+	 # move focus with q w f p b j l u (defined at the top with set)
+    riverctl map normal Super "$kb" set-focused-tags $tags
+
+	 # move focused window with shift
+    riverctl map normal Super+Shift "$kb" set-view-tags $tags
+
+    # toggle tags focus
+    riverctl map normal Super+Alt "$kb" toggle-focused-tags $tags
+
+    # focused window to be on different tags at the same time
+    riverctl map normal Super+Alt+Shift "$kb" toggle-view-tags $tags
+done
+
+# change size
+riverctl map normal Super N send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal Super O send-layout-cmd rivertile "main-ratio +0.05"
+
+# Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
+riverctl map normal Super+Shift N send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super+Shift O send-layout-cmd rivertile "main-count -1"
+
+# Super+Period and Super+Comma to focus the next/previous output
+riverctl map normal Super Period focus-output next
+riverctl map normal Super Comma focus-output previous
+
+# Super+Shift+{Period,Comma} to send the focused view to the next/previous output
+riverctl map normal Super+Shift Period send-to-output next
+riverctl map normal Super+Shift Comma send-to-output previous
+
+# move windows (switch to floating mode)
+riverctl map normal Super+Alt N move left 100
+riverctl map normal Super+Alt E move down 100
+riverctl map normal Super+Alt I move up 100
+riverctl map normal Super+Alt O move right 100
+
+# snap to corner (switch to floating mode)
+riverctl map normal Super+Alt+Control N snap left
+riverctl map normal Super+Alt+Control E snap down
+riverctl map normal Super+Alt+Control I snap up
+riverctl map normal Super+Alt+Control O snap right
+
+# Super+Alt+Shift+{H,J,K,L} to resize views
+riverctl map normal Super+Alt+Shift N resize horizontal -100
+riverctl map normal Super+Alt+Shift E resize vertical 100
+riverctl map normal Super+Alt+Shift I resize vertical -100
+riverctl map normal Super+Alt+Shift O resize horizontal 100
+
+# mouse binds
+riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+
+# Super+0 to focus all tags
+# Super+Shift+0 to tag focused view with all tags
+all_tags=$(((1 << 32) - 1))
+riverctl map normal Super 0 set-focused-tags $all_tags
+riverctl map normal Super+Shift 0 set-view-tags $all_tags
+
+# Super+{Up,Right,Down,Left} to change layout orientation
+riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
+riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
+riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
+riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
+
+# passthrough mode
+#riverctl declare-mode passthrough
+#riverctl map normal Super F11 enter-mode passthrough
+#riverctl map passthrough Super F11 enter-mode normal
+
+# keybinds that works in locked mode
+for mode in normal locked
+do
+    # volume with pipewire
+    riverctl map $mode Super SemiColon spawn 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+'
+    riverctl map $mode Super Y spawn 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'
+
+	 # brightness
+    riverctl map $mode Super+Shift SemiColon spawn 'brightnessctl -e set +5%'
+    riverctl map $mode Super+Shift Y spawn 'brightnessctl -e set 5%-'
+
+    # xf86 key for the sake of having it, i don't actually use it
+    riverctl map $mode None XF86AudioRaiseVolume spawn 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+'
+    riverctl map $mode None XF86AudioLowerVolume spawn 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'
+    riverctl map $mode None XF86AudioMute spawn 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
+    riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl -e set +5%'
+    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl -e set 5%-'
+done
+
+# Set background and border color
+riverctl background-color 0x1e1e2e # catppuccin base
+riverctl border-color-focused 0xb4befe # lavender
+riverctl border-color-unfocused 0x6c7086 # overlay0
+riverctl border-color-urgent 0xfab387 # peach
+
+# Set keyboard repeat rate
+riverctl set-repeat 43 259
+
+# windows rules
+riverctl rule-add -title '*' ssd # use server side decoration for everything
+
+## open in specific tag
+riverctl rule-add -title '*Firefox*' tags 3
+## steam
+riverctl rule-add -title 'steam' float
+
+## picture in picture
+riverctl rule-add -title "Picture-in-Picture" float
+
+# Set the default layout generator to be rivertile and start it.
+# River will send the process group of the init executable SIGTERM on exit.
+riverctl default-layout rivertile
+rivertile -main-location right -view-padding 5 -outer-padding 11 -main-ratio 0.6 &

@@ -1,0 +1,235 @@
+base: &base 1e1e2ebf
+mantle: &mantle 181825ff
+crust: &crust 11111bff
+
+text: &text cdd6f4ff
+subtext0: &subtext0 a6adc8ff
+subtext1: &subtext1 bac2deff
+
+surface0: &surface0 313244ff
+surface1: &surface1 45475aff
+surface2: &surface2 585b70ff
+
+overlay0: &overlay0 6c7086ff
+overlay1: &overlay1 7f849cff
+overlay2: &overlay2 9399b2ff
+
+blue: &blue 89b4faff
+lavender: &lavender b4befeff
+sapphire: &sapphire 74c7ecff
+sky: &sky 89dcebff
+teal: &teal 94e2d5ff
+green: &green a6e3a1ff
+yellow: &yellow f9e2afff
+peach: &peach fab387ff
+maroon: &maroon eba0acff
+red: &red f38ba8ff
+mauve: &mauve cba6f7ff
+pink: &pink f5c2e7ff
+flamingo: &flamingo f2cdcdff
+rosewater: &rosewater f5e0dcff
+transparent: &transparent 00000000
+
+font: &font Nunito:style=Bold:size=26
+icon: &icon "Symbols Nerd Font:size=26"
+iconLg: &iconLg "Symbols Nerd Font:size=35"
+
+margin: &margin {margin: 11}
+marginIcon: &marginIcon {left-margin: 7}
+marginLeftCorner: &marginLeftCorner {left-margin: 21, right-margin: 11}
+marginRightCorner: &marginRightCorner {left-margin: 11, right-margin: 21}
+
+underline_blue: &underline_blue {deco: {underline: {size: 3, color: *blue}}}
+underline_lavender: &underline_lavender {deco: {underline: {size: 3, color: *lavender}}}
+underline_sapphire: &underline_sapphire {deco: {underline: {size: 3, color: *sapphire}}}
+underline_green: &underline_green {deco: {underline: {size: 3, color: *green}}}
+underline_yellow: &underline_yellow {deco: {underline: {size: 3, color: *yellow}}}
+underline_red: &underline_red {deco: {underline: {size: 3, color: *red}}}
+underline_pink: &underline_pink {deco: {underline: {size: 3, color: *pink}}}
+underline_mauve: &underline_mauve {deco: {underline: {size: 3, color: *mauve}}}
+underline_flamingo: &underline_flamingo {deco: {underline: {size: 3, color: *flamingo}}}
+
+# on-click function
+brightnessCtl: &brightnessCtl {on-click: {left: ~/.config/hypr/blue-light-filter-toggle, wheel-up: brightnessctl -e set 5%+, wheel-down: brightnessctl -e set 5%-}}
+volumeCtl: &volumeCtl {on-click: {left: wpctl set-mute @DEFAULT_SINK@ toggle, wheel-up: wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+, wheel-down: wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-}}
+openMenu: &openMenu {on-click: {left: tofi-drun}}
+powerCtl: &powerCtl {on-click: {left: loginctl lock-session}}
+displayDate: &displayDate {on-click: {left: ~/.config/yambar/notiDate}}
+
+bar:
+  location: top
+  font: *font
+  font-shaping: none
+  background: *transparent
+  foreground: *text
+
+  height: 67
+  spacing: 2
+  border:
+    width: 0
+    top-margin: 0
+    bottom-width: 0
+    color: *transparent
+
+  left:
+    - label:
+        content:
+          - string: {text: "", font: *iconLg, foreground: *pink, <<: [*marginLeftCorner, *openMenu]}
+          - string: {text: "|", foreground: *overlay0}
+
+    - foreign-toplevel:
+        content:
+          map:
+            conditions:
+              ~activated: {empty: {}}
+              activated:
+                - string: {text: "{title}", max: 57, <<: [*margin, *underline_mauve]}
+
+  center:
+    - river:
+        anchors:
+          - common: &common {margin: 15} # TODO on-click to go to workspace
+          - focused: &focused {foreground: *pink, <<: *common}
+          - active: &active {foreground: *blue, <<: *common}
+          - empty: &empty {foreground: *overlay0, <<: *common}
+          - urgent: &urgent {foreground: *flamingo, <<: [*common, *underline_red]}
+
+        #title: {string: {text: "{seat} - {mode}"}}
+        content:
+          map:
+            conditions:
+              ~occupied: {empty: {}}
+               #string: {text: "{id}", <<: [*common, *empty]}
+              occupied:
+                map:
+                  default:
+                    string: {text: "{id}", <<: [*common, *active]}
+                  conditions:
+                    state == focused:
+                      string: {text: "{id}", <<: [*common, *focused]}
+
+  right:
+    - removables:
+        content:
+          map:
+            conditions:
+              ~mounted:
+                  list:
+                    spacing: 0
+                    on-click: udisksctl mount -b {device}
+                    items:
+                      - string: {text: "󰕓",foreground: *red, <<: [*marginIcon, *underline_flamingo]}
+                      - string: {text: "{label}", max: 15, <<: [*margin, *underline_flamingo]}
+              mounted:
+                  list:
+                    spacing: 0
+                    on-click: udisksctl unmount -b {device}
+                    items:
+                      - string: {text: "", foreground: *green, <<: [*marginIcon, *underline_flamingo]}
+                      - string: {text: "{label}", max: 15, <<: [*margin, *underline_flamingo]}
+
+
+    - pipewire:
+        content:
+          map:
+            conditions:
+              type == "sink":
+                map:
+                  conditions:
+                    muted:
+                      - string: {text: "󰖁", font: *icon, foreground: *green , <<: [*volumeCtl, *margin, *underline_green]}
+                    ~muted:
+                      list:
+                        spacing: 0
+                        <<: *volumeCtl
+                        items:
+                          - string: {text: "󰕾", font: *icon, foreground: *green, <<: [*marginIcon, *underline_green]}
+                          - string: {text: "{cubic_volume}%", <<: [*margin, *underline_green]}
+
+    - backlight:
+        name: apple-panel-bl
+        content:
+          list:
+            spacing: 0
+            <<: *brightnessCtl
+            items:
+              - string: {text: "", font: *icon, foreground: *yellow, <<: [*marginIcon, *underline_yellow]}
+              - string: {text: "{percent}%", <<: [*margin, *underline_yellow]}
+
+    - battery:
+        name: macsmc-battery
+        poll-interval: 50000
+        anchors:
+          discharging: &discharging
+            list:
+              spacing: 0
+              items:
+                - ramp:
+                    tag: capacity
+                    items:
+                      - string: {text: '', font: *icon, foreground: *red, <<: [*marginIcon, *underline_mauve]}
+                      - string: {text: '', font: *icon, foreground: *red, <<: [*marginIcon, *underline_mauve]}
+                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
+                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
+                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
+                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
+                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
+                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
+                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
+                      - string: {text: '', font: *icon, foreground: *mauve, <<: [*marginIcon, *underline_mauve]}
+                - string: {text: "{capacity}%", <<: [*margin, *underline_mauve]}
+        content:
+          map:
+            default: {empty: {}}
+            conditions:
+              name == macsmc-battery:
+                map:
+                  conditions:
+                    state == unknown:
+                      <<: *discharging
+                    state == discharging:
+                      <<: *discharging
+                    state == charging: &charging
+                      list:
+                        spacing: 0
+                        items:
+                          - string: {text: '', foreground: *green, <<: [*marginIcon, *underline_mauve]}
+                          - string: {text: "{capacity}%", <<: [*margin, *underline_mauve]}
+
+    - network:
+        poll-interval: 1000
+        content:
+          map:
+            default: {empty: {}}
+            conditions:
+              name == wlp1s0f0:
+                map:
+                  conditions:
+                    ssid == "":
+                      list:
+                        spacing: 0
+                        items:
+                          - string: {text: "", font: *icon, foreground: *blue, <<: [*marginIcon, *underline_blue]}
+                          - string: {text: "Disconnected", foreground: *pink, <<: [*margin, *underline_blue]}
+                  default:
+                    list:
+                      spacing: 0
+                      items:
+                        - string: {text: "", font: *icon, foreground: *blue, <<: [*marginIcon, *underline_blue]}
+                        - string: {text: "{ssid}", <<: [*margin, *underline_blue]}
+
+    - clock:
+        date-format: "%b %d"
+        content:
+          list:
+            spacing: 0
+            <<: *displayDate
+            items:
+              - string: {text: "", font: *icon, foreground: *pink, <<: [*marginIcon, *underline_pink]}
+              - string: {text: "{time}", <<: [*margin, *underline_pink]}
+              #- string: {text: "󰸘", font: *icon, foreground: *red, <<: [*marginIcon, *underline_pink]}
+              #- string: {text: "{date}", <<: [*margin, *underline_pink]}
+
+    - label:
+        content:
+          string: {text: "", font: *icon, foreground: *red, <<: [*marginRightCorner, *underline_red, *powerCtl]}
