@@ -4,8 +4,8 @@ hyprctl getoption decoration:screen_shader -j \
 	| grep -q -e "blue-light-filter"
 if [ $? == 0 ]; then
 	hyprctl keyword decoration:screen_shader "" \
-	&& notify-send "Turned on blue light filter!"
+	&&	notify-send "Turned off blue light filter!"
 else
 	hyprctl keyword decoration:screen_shader "~/.config/hypr/shaders/blue-light-filter.glsl" \
-	&&	notify-send "Turned off blue light filter!"
+	&& notify-send "Turned on blue light filter!"
 fi
