@@ -50,7 +50,7 @@ underline_mauve: &underline_mauve {deco: {underline: {size: 3, color: *mauve}}}
 underline_flamingo: &underline_flamingo {deco: {underline: {size: 3, color: *flamingo}}}
 
 # on-click function
-brightnessCtl: &brightnessCtl {on-click: {left: ~/.config/hypr/blue-light-filter-toggle, wheel-up: brightnessctl -e set 5%+, wheel-down: brightnessctl -e set 5%-}}
+brightnessCtl: &brightnessCtl {on-click: { wheel-up: brightnessctl -e set 5%+, wheel-down: brightnessctl -e set 5%-}}
 volumeCtl: &volumeCtl {on-click: {left: wpctl set-mute @DEFAULT_SINK@ toggle, wheel-up: wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+, wheel-down: wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-}}
 openMenu: &openMenu {on-click: {left: tofi-drun}}
 powerCtl: &powerCtl {on-click: {left: loginctl lock-session}}
@@ -88,25 +88,31 @@ bar:
   center:
     - river:
         anchors:
-          - common: &common {margin: 15} # TODO on-click to go to workspace
-          - focused: &focused {foreground: *pink, <<: *common}
-          - active: &active {foreground: *blue, <<: *common}
-          - empty: &empty {foreground: *overlay0, <<: *common}
-          - urgent: &urgent {foreground: *flamingo, <<: [*common, *underline_red]}
+          - based: &based {margin: 15}
+          # cant use base since its defined as a color, so based it is
+          - focused: &focused {foreground: *pink, <<: *based}
+          - active: &active {foreground: *blue, <<: *based}
+          - empty: &empty {foreground: *overlay0, <<: *based}
+          - urgent: &urgent {foreground: *flamingo, <<: [*based, *underline_red]}
 
-        #title: {string: {text: "{seat} - {mode}"}}
         content:
           map:
+            on-click:
+              left: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
+              right: sh -c "riverctl toggle-focused-tags $((1 << ({id} -1)))"
+              middle: sh -c "riverctl toggle-view-tags $((1 << ({id} -1)))"
+
+            default: {empty: {}}
             conditions:
-              ~occupied: {empty: {}}
-               #string: {text: "{id}", <<: [*common, *empty]}
-              occupied:
+              id <= 9: # only show 1 to 9
                 map:
                   default:
-                    string: {text: "{id}", <<: [*common, *active]}
+                    string: {text: "{id}", <<: [*based, *empty]}
                   conditions:
-                    state == focused:
-                      string: {text: "{id}", <<: [*common, *focused]}
+                    focused:
+                      string: {text: "{id}", <<: [*based, *focused]}
+                    occupied:
+                      string: {text: "{id}", <<: [*based, *active]}
 
   right:
     - removables:

@@ -1,13 +1,16 @@
 #!/bin/sh
 
 # set colemak-dh
-riverctl spawn "kmonad ~/.config/kmonad/config.kbd"
+riverctl spawn "kmonad ~/.config/kmonad/Meh.kbd"
 #riverctl keyboard-layout -variant colemak_dh us # just for fallback
+
 
 # set fractional scaling
 riverctl spawn "wlr-randr --output eDP-1 --scale 2.0"
 
 # start up programs
+riverctl spawn "hyprlock" # lock screen
+riverctl spawn "hypridle" # idle manager
 riverctl spawn "killall yambar ; yambar -c ~/.config/yambar/river.yml" # status bar
 riverctl spawn "dunst" # notification daemon
 riverctl spawn "hyprpaper" # wallpaper
@@ -37,6 +40,26 @@ riverctl map normal Super I focus-view previous
 riverctl map normal Super+Shift E swap next
 riverctl map normal Super+Shift I swap previous
 
+# reload config
+riverctl map normal Super+Shift R spawn "$HOME/.config/river/init"
+
+# scratchpad
+scratch_tag=$((1 << 20))
+riverctl map normal Super A toggle-focused-tags ${scratch_tag}
+riverctl map normal Super+Shift A set-view-tags ${scratch_tag}
+# Set spawn tagmask to ensure new windows don't have the scratchpad tag unless
+# explicitly set.
+all_but_scratch_tag=$(( ((1 << 32) - 1) ^ $scratch_tag ))
+riverctl spawn-tagmask ${all_but_scratch_tag}
+
+# sticky
+all_tags=$(((1 << 32) - 1))
+sticky_tag=$((1 << 31))
+all_but_sticky_tag=$(( $all_tags ^ $sticky_tag ))
+
+riverctl map normal Super S toggle-view-tags $sticky_tag
+riverctl spawn-tagmask ${all_but_sticky_tag}
+
 # q w f p b j l u for tags(not workspaces) shortcuts
 set -- q w f p b j l u
 # ^ have to set array with positional arguments since posix sh doesn't have array
@@ -46,7 +69,7 @@ do
 	 kb=$(eval echo \$$((i + 1)))
 
 	 # move focus with q w f p b j l u (defined at the top with set)
-    riverctl map normal Super "$kb" set-focused-tags $tags
+	 riverctl map normal Super "$kb" set-focused-tags $(($sticky_tag + $tags))
 
 	 # move focused window with shift
     riverctl map normal Super+Shift "$kb" set-view-tags $tags
@@ -57,9 +80,6 @@ do
     # focused window to be on different tags at the same time
     riverctl map normal Super+Alt+Shift "$kb" toggle-view-tags $tags
 done
-
-# reload config
-riverctl map normal Super+Shift R spawn "~/.config/river/init"
 
 # change size
 riverctl map normal Super N send-layout-cmd rivertile "main-ratio -0.05"
@@ -117,6 +137,10 @@ riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
 #riverctl map normal Super F11 enter-mode passthrough
 #riverctl map passthrough Super F11 enter-mode normal
 
+# screenshot
+riverctl map normal Super S spawn "grim $SCREENSHOTS_DIR/$(date +%Y%m%d%H%M)-screenshot.png && notify-send 'Screenshot taken'"
+riverctl map normal Super+Shift S spawn 'screenshot select-wl'
+
 # keybinds that works in locked mode
 for mode in normal locked
 do
@@ -141,22 +165,26 @@ riverctl background-color 0x1e1e2e # catppuccin base
 riverctl border-color-focused 0xb4befe # lavender
 riverctl border-color-unfocused 0x6c7086 # overlay0
 riverctl border-color-urgent 0xfab387 # peach
+riverctl border-width 2
 
 # Set keyboard repeat rate
 riverctl set-repeat 43 259
 
 # windows rules
-riverctl rule-add -title '*' ssd # use server side decoration for everything
+riverctl rule-add ssd # use server side decorations
 
 ## open in specific tag
-riverctl rule-add -title '*Firefox*' tags 3
+riverctl rule-add -title '*Firefox*' tags $((1 << 2)) # tag 3
 ## steam
 riverctl rule-add -title 'steam' float
 
 ## picture in picture
 riverctl rule-add -title "Picture-in-Picture" float
+riverctl rule-add -title "Picture-in-Picture" position 2560 1600 # bottom right
+riverctl rule-add -title "Picture-in-Picture" tags $((1 << 31)) # sticky
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
+#riverctl default-attach-mode below # newly spawn windows are below focused window
 rivertile -main-location right -view-padding 5 -outer-padding 11 -main-ratio 0.6 &
