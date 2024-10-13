@@ -6,18 +6,12 @@ for_window [class=".*"] border pixel 3
 gaps inner 15
 gaps outer 3
 
-# color variables at the bottom of the file
-# target                 title     bg    text   indicator  border
-client.focused           $lavender $base $text  $lavender $lavender
-client.focused_inactive  $overlay0 $base $text  $overlay0 $overlay0
-client.unfocused         $overlay0 $base $text  $overlay0 $overlay0
-client.urgent            $peach    $base $peach $overlay0  $peach
-client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
-client.background        $base
-
 # switch to colemak_dh
 exec "kmonad $HOME/.config/kmonad/config.kbd"
 #exec "setxkbmap us -variant colemak_dh"
+
+# key repeat rate
+exec_always --no-startup-id xset r rate 259 43
 
 # startup program
 exec --no-startup-id dex --autostart --environment i3
@@ -204,3 +198,11 @@ set $surface0  #313244
 set $base      #1e1e2e
 set $mantle    #181825
 set $crust     #11111b
+
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $lavender $lavender
+client.focused_inactive  $overlay0 $base $text  $overlay0 $overlay0
+client.unfocused         $overlay0 $base $text  $overlay0 $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
