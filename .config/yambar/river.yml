@@ -50,11 +50,13 @@ underline_mauve: &underline_mauve {deco: {underline: {size: 3, color: *mauve}}}
 underline_flamingo: &underline_flamingo {deco: {underline: {size: 3, color: *flamingo}}}
 
 # on-click function
-brightnessCtl: &brightnessCtl {on-click: { wheel-up: brightnessctl -e set 5%+, wheel-down: brightnessctl -e set 5%-}}
+brightnessCtl: &brightnessCtl {on-click: {wheel-up: brightnessctl -e set 5%+, wheel-down: brightnessctl -e set 5%-}}
 volumeCtl: &volumeCtl {on-click: {left: wpctl set-mute @DEFAULT_SINK@ toggle, wheel-up: wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+, wheel-down: wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-}}
 openMenu: &openMenu {on-click: {left: tofi-drun}}
 powerCtl: &powerCtl {on-click: {left: loginctl lock-session}}
 displayDate: &displayDate {on-click: {left: ~/.config/yambar/notiDate}}
+batteryEstimate: &batteryEstimate
+  on-click: notify-send "Estimated time - {estimate}" # not really accurate but whatever
 
 bar:
   location: top
@@ -169,6 +171,7 @@ bar:
           discharging: &discharging
             list:
               spacing: 0
+              <<: *batteryEstimate
               items:
                 - ramp:
                     tag: capacity
@@ -190,14 +193,13 @@ bar:
             conditions:
               name == macsmc-battery:
                 map:
+                  default:
+                    <<: *discharging
                   conditions:
-                    state == unknown:
-                      <<: *discharging
-                    state == discharging:
-                      <<: *discharging
                     state == charging: &charging
                       list:
                         spacing: 0
+                        <<: *batteryEstimate
                         items:
                           - string: {text: '', foreground: *green, <<: [*marginIcon, *underline_mauve]}
                           - string: {text: "{capacity}%", <<: [*margin, *underline_mauve]}
