@@ -1,6 +1,7 @@
 #! /bin/sh
 
 # go to last dir on yazi exit, Q to keep the same dir
+# this function is bash but putting here for organization
 yz() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
@@ -13,8 +14,6 @@ yz() {
 # go to last dir on lf exit
 lfcd() { cd "$(command lf -print-last-dir"$@")" }
 
-alias grep="grep --color=always"
-alias ls="ls --color=always"
 alias rm="rm -Ivr"
 alias mkdir="mkdir -pv"
 alias mv="mv -iv"
@@ -22,6 +21,11 @@ alias cp="cp -rv"
 alias scp="scp -r"
 alias df="df -h"
 alias du="du -h"
+
+# color
+alias grep="grep --color=always"
+alias ls="ls --color=always"
+alias diff="diff --color=always"
 
 alias yeet="doas pacman -Rns"
 alias goodnight="shutdown -h now"
