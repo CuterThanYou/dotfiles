@@ -9,7 +9,7 @@ riverctl spawn "kmonad ~/.config/kmonad/Meh.kbd"
 riverctl spawn "wlr-randr --output eDP-1 --scale 2.0"
 
 # start up programs
-riverctl spawn "hyprlock" # lock screen
+#riverctl spawn "hyprlock" # lock screen
 riverctl spawn "hypridle" # idle manager
 riverctl spawn "killall yambar ; yambar -c ~/.config/yambar/river.yml" # status bar
 riverctl spawn "dunst" # notification daemon
@@ -17,6 +17,7 @@ riverctl spawn "hyprpaper" # wallpaper
 
 # touchpad settings
 riverctl input pointer-1452-641-Apple_Internal_Keyboard_/_Trackpad natural-scroll disabled
+riverctl focus-follows-cursor normal # follow cursor
 
 # variables
 menu=tofi-drun
@@ -24,8 +25,8 @@ menu=tofi-drun
 # keybinds (colemak-dh)
 riverctl map normal Super Return spawn foot
 riverctl map normal Super X close
-riverctl map normal Super+Shift Return zoom # move focused window to main
-riverctl map normal Super Space toggle-float
+riverctl map normal Super Space zoom # move focused window to main
+riverctl map normal Super M toggle-float
 riverctl map normal Super T toggle-fullscreen
 
 # program binds
@@ -57,7 +58,7 @@ all_tags=$(((1 << 32) - 1))
 sticky_tag=$((1 << 31))
 all_but_sticky_tag=$(( $all_tags ^ $sticky_tag ))
 
-riverctl map normal Super S toggle-view-tags $sticky_tag
+riverctl map normal Super H toggle-view-tags $sticky_tag
 riverctl spawn-tagmask ${all_but_sticky_tag}
 
 # q w f p b j l u for tags(not workspaces) shortcuts
@@ -138,7 +139,7 @@ riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
 #riverctl map passthrough Super F11 enter-mode normal
 
 # screenshot
-riverctl map normal Super S spawn "grim $SCREENSHOTS_DIR/$(date +%Y%m%d%H%M)-screenshot.png && notify-send 'Screenshot taken'"
+riverctl map normal Super S spawn "screenshot full-wl"
 riverctl map normal Super+Shift S spawn 'screenshot select-wl'
 
 # keybinds that works in locked mode
@@ -174,9 +175,11 @@ riverctl set-repeat 43 259
 riverctl rule-add ssd # use server side decorations
 
 ## open in specific tag
-riverctl rule-add -title '*Firefox*' tags $((1 << 2)) # tag 3
+riverctl rule-add -app-id 'org.mozilla.firefox' tags $((1 << 2)) # tag 3
 ## steam
-riverctl rule-add -title 'steam' float
+riverctl rule-add -app-id 'steam*' float
+riverctl rule-add -app-id 'steam*' tags $((1 << 3)) # tag 4
+riverctl rule-add -title 'steam_app_*' tags $((1 << 1)) # tag 2
 
 ## picture in picture
 riverctl rule-add -title "Picture-in-Picture" float
