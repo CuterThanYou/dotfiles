@@ -23,6 +23,7 @@ export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 
+export MANPAGER="nvim +Man!" # its so slow but whatever
 export SCREENSHOTS_DIR="$HOME/media/screenshots"
 
 # home clean up export
