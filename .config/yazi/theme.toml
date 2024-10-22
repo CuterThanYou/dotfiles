@@ -34,12 +34,12 @@ syntect_theme = "~/.config/yazi/Catppuccin-mocha.tmTheme"
 [status]
 separator_open  = ""
 separator_close = ""
-separator_style = { fg = "#45475a", bg = "#45475a" }
+separator_style = { fg = "reset", bg = "reset" }
 
 # Mode
-mode_normal = { fg = "#1e1e2e", bg = "#89b4fa", bold = true }
-mode_select = { fg = "#1e1e2e", bg = "#a6e3a1", bold = true }
-mode_unset  = { fg = "#1e1e2e", bg = "#f2cdcd", bold = true }
+mode_normal = { fg = "#89b4fa", bg = "reset", bold = true }
+mode_select = { fg = "#a6e3a1", bg = "reset", bold = true }
+mode_unset  = { fg = "#f2cdcd", bg = "reset", bold = true }
 
 # Progress
 progress_label  = { fg = "#ffffff", bold = true }
