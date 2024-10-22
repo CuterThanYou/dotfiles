@@ -6,6 +6,7 @@ prepopulate-query-feeds yes
 articlelist-format  "%4i %f %D %?T?|%-17T| ?%t"
 
 bind-key SPACE macro-prefix
+macro o open-in-browser # open in $BROWSER
 macro v set browser "setsid -f mpv --terminal=no" ; open-in-browser ; set browser "$BROWSER %u" # open link in mpv
 macro g set browser "amfora" ; open-in-browser ; set browser "$BROWSER %u" # open gemini link
 
