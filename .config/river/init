@@ -20,7 +20,7 @@ riverctl input pointer-1452-641-Apple_Internal_Keyboard_/_Trackpad natural-scrol
 riverctl focus-follows-cursor normal # follow cursor
 
 # variables
-menu=tofi-drun
+menu=fuzzel
 
 # keybinds (colemak-dh)
 riverctl map normal Super Return spawn foot
