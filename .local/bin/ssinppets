@@ -1,0 +1,41 @@
+#!/bin/sh
+
+
+# misspell snippet teehee, kept to cuz it's funny
+## fuzzel for menu, ydotool to paste
+
+# will look for files in $store_dir variable
+store_dir="$HOME/docs/snippets"
+#store_dir="$XDG_DOCUMENTS_DIR/snippets"
+
+choose_file(){
+	choose_file=$(ls "$store_dir" | fuzzel --dmenu --placeholder="file to open")
+	[ -z "$choose_file" ] && exit 1
+	file_to_open="$store_dir/$choose_file"
+	# wont need this^ variable if u use 'find' instead of 'ls', but that'll show the pull path in fuzzel
+}
+
+paste(){
+	choose_file && \
+	# need to create a variable since otherwise it will insert a \n at the end
+	text=$(grep -v '^#' "$file_to_open" | fuzzel --dmenu --placeholder="text to paste" | sed 's/ # //') && \
+		wtype "$text"
+		#echo "type $text" | dotool
+}
+
+save(){
+	# anything after ' # ' will be comment
+	choose_file && \
+		foot -e "$EDITOR" "$file_to_open" # meh, will probably come up with better solution later
+}
+
+# main
+case "$1" in
+	"paste") paste || exit ;;
+	"save") save || exit ;;
+	*) echo "wrong argument" ; exit ;;
+esac
+
+# these will create a new line at the end
+#grep -v '^#' "$file_to_open" | fuzzel --dmenu | sed 's/ # //' | ydotool type -f -
+#grep -v '^#' "$file_to_open" | fuzzel --dmenu | sed 's/ # //' | wtype -
