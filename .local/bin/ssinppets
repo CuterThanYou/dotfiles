@@ -18,7 +18,7 @@ choose_file(){
 paste(){
 	choose_file && \
 	# need to create a variable since otherwise it will insert a \n at the end
-	text=$(grep -v '^#' "$file_to_open" | fuzzel --dmenu --placeholder="text to paste" | sed 's/ # //') && \
+	text=$(grep -v '^#' "$file_to_open" | fuzzel --dmenu --placeholder="text to paste" | sed 's/ # .*//') && \
 		wtype "$text"
 		#echo "type $text" | dotool
 }
