@@ -9,7 +9,13 @@ store_dir="$HOME/docs/snippets"
 #store_dir="$XDG_DOCUMENTS_DIR/snippets"
 
 choose_file(){
-	choose_file=$(ls "$store_dir" | fuzzel --dmenu --placeholder="file to open")
+	if [ "$1" = "save" ]; then
+		# add 'create a new file' option in save mode
+		choose_file=$( (ls "$store_dir"; echo "Create a new file") | fuzzel --dmenu --placeholder="file to open")
+		[ "$choose_file" = "Create a new file" ] && create_file && return 1
+	else
+		choose_file=$(ls "$store_dir" | fuzzel --dmenu --placeholder="file to open")
+	fi
 	[ -z "$choose_file" ] && exit 1
 	file_to_open="$store_dir/$choose_file"
 	# wont need this^ variable if u use 'find' instead of 'ls', but that'll show the pull path in fuzzel
@@ -24,9 +30,18 @@ paste(){
 }
 
 save(){
-	# anything after ' # ' will be comment
-	choose_file && \
-		foot -e "$EDITOR" "$file_to_open" # meh, will probably come up with better solution later
+	choose_file save && \
+	foot -e "$EDITOR" "$file_to_open" # meh, will probably come up with better solution later
+}
+
+create_file(){
+	file_name=$(fuzzel --dmenu --prompt-only= --placeholder="enter the filename")
+	[ -z "$file_name" ] && exit 1
+	location="$store_dir/$file_name"
+	[ -e "$location" ] && notify-send "file already exists" && exit 1
+	touch "$location" && \
+		echo "# vim:ft=conf" >> "$location"
+		foot -e "$EDITOR" "$location"
 }
 
 # main
