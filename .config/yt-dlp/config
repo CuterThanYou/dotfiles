@@ -1,0 +1,33 @@
+# output
+--paths "~/media/videos/yt/"
+#--output "%(uploader_id|Unknown)s.%(upload_date|unknown)s.%(title)s.%(ext)s"
+--output "%(upload_date|unknown)s.%(title)s.%(ext)s"
+#--merge-output-format "mp4"
+
+--sponsorblock-remove "all,-filler"
+
+# -F to list format
+-f bestvideo+bestaudio # 'bestaudio' with yt compression
+
+# subtitles
+#--write-subs # not needed with embed sub option
+--write-auto-subs
+--sub-langs "en.*"
+--embed-subs
+#--compat-options no-keep-subs
+
+# other settings
+-N 3 # parallel download
+--embed-metadata
+--embed-chapters
+--no-mtime
+--no-write-thumbnail
+--no-write-description
+--continue
+--restrict-filenames
+--retries infinite
+--fragment-retries infinite
+
+# -x # extract audio
+
+# vim:ft=conf
