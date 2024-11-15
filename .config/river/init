@@ -4,23 +4,26 @@
 riverctl spawn "kmonad ~/.config/kmonad/Meh.kbd"
 #riverctl keyboard-layout -variant colemak_dh us # just for fallback
 
-
 # set fractional scaling
 riverctl spawn "wlr-randr --output eDP-1 --scale 2.0"
 
 # start up programs
-#riverctl spawn "hyprlock" # lock screen
 riverctl spawn "hypridle" # idle manager
 riverctl spawn "killall yambar ; yambar -c ~/.config/yambar/river.yml" # status bar
 riverctl spawn "dunst" # notification daemon
 riverctl spawn "hyprpaper" # wallpaper
 
-# touchpad settings
-riverctl input pointer-1452-641-Apple_Internal_Keyboard_/_Trackpad natural-scroll disabled
-riverctl focus-follows-cursor normal # follow cursor
-
 # variables
 menu=fuzzel
+touchpad="$(riverctl list-inputs | grep pointer | tail -n 1)"
+
+# touchpad settings
+riverctl input "$touchpad" natural-scroll disabled
+riverctl input "$touchpad" accel-profile flat
+riverctl input "$touchpad" pointer-accel 1.0
+riverctl input "$touchpad" click-method clickfinger
+riverctl input "$touchpad" disable-while-typing enabled
+riverctl focus-follows-cursor disabled
 
 # keybinds (colemak-dh)
 riverctl map normal Super Return spawn foot
@@ -76,10 +79,11 @@ do
     riverctl map normal Super+Shift "$kb" set-view-tags $tags
 
     # toggle tags focus
-    riverctl map normal Super+Alt "$kb" toggle-focused-tags $tags
+	 # use number to toggle
+	 riverctl map normal Super "$((i + 1))" toggle-focused-tags $tags
 
     # focused window to be on different tags at the same time
-    riverctl map normal Super+Alt+Shift "$kb" toggle-view-tags $tags
+	 riverctl map normal Super+Shift "$((i + 1))" toggle-view-tags $tags
 done
 
 # change size
@@ -89,6 +93,10 @@ riverctl map normal Super O send-layout-cmd rivertile "main-ratio +0.05"
 # Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
 riverctl map normal Super+Shift N send-layout-cmd rivertile "main-count +1"
 riverctl map normal Super+Shift O send-layout-cmd rivertile "main-count -1"
+
+# paste & save snippets
+riverctl map normal Super V spawn "ssinppets paste"
+riverctl map normal Super+Shift V spawn "ssinppets save"
 
 # Super+Period and Super+Comma to focus the next/previous output
 riverctl map normal Super Period focus-output next
@@ -190,4 +198,4 @@ riverctl rule-add -title "Picture-in-Picture" tags $((1 << 31)) # sticky
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
 #riverctl default-attach-mode below # newly spawn windows are below focused window
-rivertile -main-location right -view-padding 5 -outer-padding 11 -main-ratio 0.6 &
+rivertile -main-location right -view-padding 3 -outer-padding 7 -main-ratio 0.6 &
