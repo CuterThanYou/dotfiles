@@ -23,6 +23,9 @@ export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 
+export XCURSOR_THEME="Banana"
+export QT_STYLE_OVERRIDE=kvantum # catppuccin kvantum theme
+
 export MANPAGER="nvim +Man!" # its so slow but whatever
 export SCREENSHOTS_DIR="$HOME/media/screenshots"
 
