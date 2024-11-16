@@ -6,9 +6,9 @@ color index_number blue default
 color index_subject cyan default '.*'
 
 # For new mail:
-color index brightyellow black "~N"
-color index_author brightred black "~N"
-color index_subject brightcyan black "~N"
+color index brightyellow default "~N"
+color index_author brightred default "~N"
+color index_subject brightcyan default "~N"
 
 # Header colors:
 color header blue default ".*"
