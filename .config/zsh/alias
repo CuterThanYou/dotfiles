@@ -38,3 +38,7 @@ alias goodnight="shutdown -h now"
 alias mpnv="mpv --no-video"
 alias vi="nvim"
 alias myconfig="git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME"
+
+# temp solution for now since there're no good image viewer in wheyland (which will be ready in the next 10 years probably)
+# https://github.com/occivink/mpv-image-viewer
+alias mpi="mpv --config-dir=$HOME/.config/mpi"
