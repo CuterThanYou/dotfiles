@@ -30,8 +30,10 @@ alias grep="grep --color=always"
 alias ls="ls --color=always"
 alias diff="diff --color=always"
 
+alias doas="doas " # this make doas uses user alias, don't know how this works
+
 alias plop="doas qlop"
-alias goOutside="doas emerge -avuDN @world"
+alias goOutside="doas emerge -avuDN @world --keep-going"
 alias yeet="doas pacman -Rns"
 alias goodnight="shutdown -h now"
 
