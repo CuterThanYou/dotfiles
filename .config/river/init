@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# environment variables are in ~/.local/bin/start_river
+
 # set colemak-dh
 riverctl spawn "kmonad ~/.config/kmonad/Meh.kbd"
 #riverctl keyboard-layout -variant colemak_dh us # just for fallback
@@ -183,7 +185,7 @@ riverctl set-repeat 43 259
 riverctl rule-add ssd # use server side decorations
 
 ## open in specific tag
-riverctl rule-add -app-id 'org.mozilla.firefox' tags $((1 << 2)) # tag 3
+riverctl rule-add -app-id 'firefox' tags $((1 << 2)) # tag 3
 ## steam
 riverctl rule-add -app-id 'steam*' float
 riverctl rule-add -app-id 'steam*' tags $((1 << 3)) # tag 4
