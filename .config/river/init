@@ -69,10 +69,11 @@ riverctl spawn-tagmask ${all_but_sticky_tag}
 # q w f p b j l u for tags(not workspaces) shortcuts
 set -- q w f p b j l u
 # ^ have to set array with positional arguments since posix sh doesn't have array
-for i in $(seq 0 7)
+for i in $(seq 1 8)
 do
-    tags=$((1 << i))
-	 kb=$(eval echo \$$((i + 1)))
+	tags=$((1 << (i - 1)))
+	kb=$i
+	#kb=$(eval echo \$$((i + 1))) # use this for (seq 0 7)
 
 	 # move focus with q w f p b j l u (defined at the top with set)
 	 riverctl map normal Super "$kb" set-focused-tags $(($sticky_tag + $tags))
