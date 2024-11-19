@@ -72,7 +72,7 @@ set -- q w f p b j l u
 for i in $(seq 1 8)
 do
 	tags=$((1 << (i - 1)))
-	kb=$i
+	kb=$(eval echo "\$$i")
 	#kb=$(eval echo \$$((i + 1))) # use this for (seq 0 7)
 
 	 # move focus with q w f p b j l u (defined at the top with set)
@@ -83,10 +83,10 @@ do
 
     # toggle tags focus
 	 # use number to toggle
-	 riverctl map normal Super "$((i + 1))" toggle-focused-tags $tags
+	 riverctl map normal Super "$i" toggle-focused-tags $tags
 
     # focused window to be on different tags at the same time
-	 riverctl map normal Super+Shift "$((i + 1))" toggle-view-tags $tags
+	 riverctl map normal Super+Shift "$i" toggle-view-tags $tags
 done
 
 # change size
