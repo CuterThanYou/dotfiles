@@ -6,8 +6,8 @@ case "$1" in
     "select") scrot "$output" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
     "full") scrot "$output" -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
 	 # wayland
-	 "select-wl") grim -g "$(slurp)" - | wl-copy && wl-paste > "$output" || exit ;;
-    "full-wl") grim - | wl-copy && wl-paste > "$output" || exit ;;
+	 "select-wl") grim -g "$(slurp)" "$output" && wl-copy < "$output" || exit ;;
+    "full-wl") grim "$output" && wl-copy < "$output" || exit ;;
 esac
 
 notify-send "Screenshot taken."
