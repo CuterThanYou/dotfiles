@@ -1,6 +1,9 @@
 #!/bin/sh
 
-# environment variables are in ~/.local/bin/start_river
+# started from ~/.local/bin/start_river
+# zbus and sustemd
+riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
+riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
 
 # set colemak-dh
 riverctl spawn "kmonad ~/.config/kmonad/Meh.kbd"

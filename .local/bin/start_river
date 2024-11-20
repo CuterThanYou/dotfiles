@@ -4,3 +4,4 @@ export XDG_SESSION_TYPE=wayland
 export XDG_CURRENT_DESKTOP=river
 
 exec river
+#exec river -log-level debug 2>&1 > /tmp/river.log
