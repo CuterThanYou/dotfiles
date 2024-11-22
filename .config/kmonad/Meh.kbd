@@ -3,8 +3,8 @@
   output (uinput-sink "My KMonad output")
 
   fallthrough true
-
   allow-cmd false
+  implicit-around around-only
 )
 
 (defsrc
