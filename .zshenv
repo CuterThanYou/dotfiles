@@ -31,8 +31,8 @@ export SCREENSHOTS_DIR="$HOME/media/screenshots"
 
 # home clean up export
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export RUSTUP_HOME="$XDG_DATA_HOME/rustup" 
-export PATH="$PATH:$CARGO_HOME/bin"
+#export RUSTUP_HOME="$XDG_DATA_HOME/rustup" # can't install on gentoo with this option
+#export PATH="$PATH:$CARGO_HOME/bin"
 export STACK_XDG=1
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"

@@ -198,10 +198,10 @@ riverctl rule-add -title 'steam_app_*' tags $((1 << 1)) # tag 2
 ## picture in picture
 riverctl rule-add -title "Picture-in-Picture" float
 riverctl rule-add -title "Picture-in-Picture" position 2560 1600 # bottom right
-riverctl rule-add -title "Picture-in-Picture" tags $((1 << 31)) # sticky
+riverctl rule-add -title "Picture-in-Picture" tags $sticky_tag # doesn't work
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
 #riverctl default-attach-mode below # newly spawn windows are below focused window
-rivertile -main-location right -view-padding 3 -outer-padding 7 -main-ratio 0.6 &
+rivertile -main-location left -view-padding 3 -outer-padding 7 -main-ratio 0.6 &
