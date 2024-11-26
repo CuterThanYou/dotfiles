@@ -7,7 +7,7 @@ import = [
 TERM= "xterm-256color"
 
 [font]
-normal = { family = "Maple Mono NF", style = "Regular"}
+normal = { family = "monospace", style = "Regular"}
 size = 12
 
 [cursor]
