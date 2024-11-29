@@ -16,7 +16,7 @@ riverctl spawn "wlr-randr --output eDP-1 --scale 2.0"
 riverctl spawn "hypridle" # idle manager
 riverctl spawn "killall yambar ; yambar -c ~/.config/yambar/river.yml" # status bar
 riverctl spawn "fnott" # notification daemon
-riverctl spawn "hyprpaper" # wallpaper
+riverctl spawn "wbg $XDG_DATA_HOME/wallpaper" # wallpaper
 
 # variables
 menu=fuzzel
