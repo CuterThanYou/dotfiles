@@ -74,6 +74,12 @@ vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#cba6f7' })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='#74c7ec' })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#cba6f7' })
 
+-- use space instaed of tab for haskell
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = { 'haskell' },
+	command = 'set expandtab',
+})
+
 -- open in tab instead to split
 vim.api.nvim_create_autocmd('BufNew', {
 	pattern = '*',
