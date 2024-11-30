@@ -23,6 +23,26 @@ map('n', 'g9', '9gt')
 -- plugins
 require('nvim-highlight-colors').setup({})
 
+-- language server
+local lsp = require('lspconfig')
+-- C
+lsp.clangd.setup({})
+-- rust
+lsp.rust_analyzer.setup {
+	settings = {
+		['rust-analyzer'] = {
+			check = {
+				command = "clippy";
+			},
+		}
+	},
+
+	-- don't recolor
+	on_attach = function(client)
+		client.server_capabilities.semanticTokensProvider = nil
+	end,
+}
+
 -- netrw
 vim.g.netrw_banner = 0
 -- line number
@@ -36,16 +56,29 @@ vim.opt.mouse=""
 -- case sensitive search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+-- whitespace indicator
+vim.opt.list = true
+vim.opt.listchars:append {
+	tab=" ▏ ",
+	trail="+",
+	leadmultispace=".",
+}
 
 -- color
 vim.opt.termguicolors = true
-vim.cmd.colorscheme('catppuccin_mocha')
+vim.cmd.colorscheme('catppuccin')
 -- use terminal background
 vim.api.nvim_set_hl(0, 'Normal', {ctermbg = 'NONE'})
 -- color for line number
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#cba6f7' })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='#74c7ec' })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#cba6f7' })
+
+-- open in tab instead to split
+vim.api.nvim_create_autocmd('BufNew', {
+	pattern = '*',
+	command = 'wincmd T',
+})
 
 -- restore cursor on exit (not needed if u use vi mode in your interactive shell)
 --[[
