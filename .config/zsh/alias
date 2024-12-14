@@ -27,7 +27,7 @@ alias dd="dd bs=4M status=progress"
 
 # color
 alias grep="grep --color=always"
-alias ls="ls --color=always"
+alias ls="ls -h --color=always"
 alias diff="diff --color=always"
 
 alias doas="doas " # this make doas uses user alias, don't know how this works

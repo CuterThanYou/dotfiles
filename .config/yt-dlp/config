@@ -2,7 +2,7 @@
 --paths "~/media/videos/yt/"
 #--output "%(uploader_id|Unknown)s.%(upload_date|unknown)s.%(title)s.%(ext)s"
 --output "%(upload_date|unknown)s.%(title)s.%(ext)s"
---merge-output-format "mp4"
+--merge-output-format "mkv"
 
 --sponsorblock-remove "all,-filler"
 

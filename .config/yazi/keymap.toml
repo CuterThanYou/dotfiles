@@ -4,6 +4,10 @@
 
 [manager]
 
+prepend_keymap = [
+	{ on = "T", run = "shell --orphan --confirm foot", desc = "Open terminal at current dir" },
+]
+
 keymap = [
 	{ on = "<Esc>", run = "escape",             desc = "Exit visual mode, clear selected, or cancel search" },
 	{ on = "<C-[>", run = "escape",             desc = "Exit visual mode, clear selected, or cancel search" },
@@ -123,6 +127,7 @@ keymap = [
 	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "Go to the config directory" },
 	{ on = [ "g", "d" ],       run = "cd ~/docs",        desc = "Go to the documents directory" },
 	{ on = [ "g", "D" ],       run = "cd ~/downloads",   desc = "Go to the downloads directory" },
+	{ on = [ "g", "r" ],       run = "cd ~/downloads/repos",   desc = "Go to the repos directory" },
 	{ on = [ "g", "p" ],       run = "cd ~/docs/projects", desc = "Go to the projects directory" },
 	{ on = [ "g", "m" ],       run = "cd ~/media",   desc = "Go to the media directory" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
