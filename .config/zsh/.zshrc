@@ -5,6 +5,10 @@ PROMPT='%B%F{magenta}%n %F{blue}%~ ${vcs_info_msg_0_}%F{blue}%F{183}»%f%b '
 # source alias file if it exists
 [ -f "$ZDOTDIR/alias" ] && source "$ZDOTDIR/alias"
 
+# features
+setopt interactive_comments # comments in interactive shell
+stty stop undef # disable ctrl-s to freeze "feature" since i might accidently press it
+
 # history
 HISTFILE="$XDG_CACHE_HOME/zsh_history"
 HISTSIZE=97379
@@ -28,8 +32,9 @@ bindkey '^R' history-incremental-search-backward
 bindkey "^[[H" beginning-of-line # Home key
 bindkey "^[[F" end-of-line # End key
 
+# jankiest implementation, very buggy, it's also vi and not vim so actually good features doesn't exist
 bindkey -v # vi mode
-export KEYTIMEOUT=1
+export KEYTIMEOUT=1 # needed for vi mode
 
 # Change cursor shape for different vi modes.
 # 1 = blinking block, 2 = block, 3 = blinking underline _, 4 = underline, 5 = blinking beam |, 6 = beam
