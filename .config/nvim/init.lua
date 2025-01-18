@@ -78,6 +78,7 @@ vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#cba6f7' })
 
 -- fuck you rust doc, can't tell me what to do, 4 spaces my ass
 vim.g.rust_recommended_style = false -- use tab instead of space
+vim.g.python_recommended_style = false -- shite language
 -- use space instaed of tab for haskell
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = { 'haskell' },
