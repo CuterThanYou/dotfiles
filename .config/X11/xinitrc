@@ -1,0 +1,11 @@
+#!/bin/sh
+
+feh --bg-fill --no-fehbg "$XDG_DATA_HOME/wallpaper"
+picom &
+kmonad "$XDG_CONFIG_HOME/kmonad/swapAltAndMeta.kbd" &
+kdeconnectd &
+redshift &
+dunst &
+
+# muh LOC
+exec dwm

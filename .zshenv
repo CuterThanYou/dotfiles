@@ -52,7 +52,8 @@ export PATH="$PATH:$XDG_BIN_HOME"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export PATH="$PATH:$XDG_DATA_HOME/npm/bin"
 ## xorg
-#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # no worky
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 # : }}}
 
 # other export
