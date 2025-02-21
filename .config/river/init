@@ -208,6 +208,10 @@ riverctl rule-add -title "Picture-in-Picture" float
 riverctl rule-add -title "Picture-in-Picture" position 2560 1600 # bottom right
 riverctl rule-add -title "Picture-in-Picture" tags $sticky_tag # doesn't work
 
+riverctl rule-add -title "QEMU" float
+riverctl rule-add -title "QEMU" tags $((1 << 1)) # tag 2
+
+
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile

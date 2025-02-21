@@ -1,4 +1,4 @@
-# : xdg default {{{
+# xdg default {{{
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
@@ -13,7 +13,7 @@ then
 		chmod 0700 "${XDG_RUNTIME_DIR}"
 	fi
 fi
-# : }}}
+# }}}
 
 # move zsh config out of ~
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
@@ -30,7 +30,7 @@ export QT_STYLE_OVERRIDE=kvantum # catppuccin kvantum theme
 export MANPAGER="nvim +Man!" # its so slow but whatever
 export SCREENSHOTS_DIR="$HOME/media/screenshots"
 
-# : home clean up {{{
+# home clean up {{{
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
@@ -54,7 +54,7 @@ export PATH="$PATH:$XDG_DATA_HOME/npm/bin"
 ## xorg
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
-# : }}}
+# }}}
 
 # other export
 
