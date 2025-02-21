@@ -1,0 +1,73 @@
+#!/bin/sh
+
+# who needs sudoedit when u can just write garbage shell script instead
+# would call it doasedit but that's kinda lame
+# TODO : no retry currently, just dont mistype lol
+
+# irrelevent {{{
+[ -z "$1" ] && echo "provide a file path" && exit 1;
+[ -n "$2" ] && echo "only 1 arg allowed" && exit 1;
+[ -d "$1" ] && echo "this is a directory" && exit 1;
+! [ -d "$(dirname "$1")" ] && echo "please create the directory first" && exit 1;
+
+[ -f "$1" ] && isnewfile=false || isnewfile=true
+
+confirm(){
+	printf "do you want to write? \e[1m[y/N]\e[0m : "
+	read -r yn
+	case $yn in
+		[Yy] ) return 0;;
+		[Nn] ) return 1;;
+		"" ) return 1;;
+		* ) printf "\e[1;33manswer with [y]es or [n]o.\e[0m\n"; confirm;;
+	esac
+}
+# }}}
+
+filetoedit="$1"
+filename="$(basename "$filetoedit")"
+tempfile="$(mktemp -t "tmp-XXXXXXX#${filename}")"
+
+newfilecase(){
+	$EDITOR "$tempfile"
+	[ -s "$tempfile" ] && echo "file to write : $filetoedit" ||
+		{ echo "nothing is written, aborting"; rm "$tempfile"; exit; };
+}
+
+editcase(){
+	cat "$filetoedit" > "$tempfile"
+	$EDITOR "$tempfile"
+	if cmp -s "$filetoedit" "$tempfile"; then
+		echo "nothing changed"; exit;
+	else
+		diff -w --color "$filetoedit" "$tempfile"
+	fi
+}
+
+write(){
+	vtmpfile="/var$tempfile" # /var/tmp/
+	mv "$tempfile" "$vtmpfile" # copy from ram to disk
+
+	if [ "$isnewfile" = true ]; then
+		parentdir=$(dirname "$filetoedit") # use parent dir permission on new file
+		doas sh -c "chown --reference=$parentdir $vtmpfile &&
+						chmod --reference=$parentdir $vtmpfile &&
+						mv $vtmpfile $filetoedit"
+	else
+		doas sh -c "chown --reference=$filetoedit $vtmpfile &&
+						chmod --reference=$filetoedit $vtmpfile &&
+						mv $vtmpfile $filetoedit"
+	fi
+	# ^^ this ugly abomination to not call multiple doas
+}
+
+if [ "$isnewfile" = true ]; then
+	newfilecase
+else
+	editcase
+fi
+confirm && write || echo "aborting";
+
+rm -f "$tempfile"
+
+# vim:foldmethod=marker
