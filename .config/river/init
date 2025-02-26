@@ -200,6 +200,7 @@ riverctl rule-add ssd # use server side decorations
 riverctl rule-add -app-id 'firefox' tags $((1 << 2)) # tag 3
 ## steam
 riverctl rule-add -app-id 'steam*' float
+riverctl rule-add -app-id 'Steam' float
 riverctl rule-add -app-id 'steam*' tags $((1 << 3)) # tag 4
 riverctl rule-add -title 'steam_app_*' tags $((1 << 1)) # tag 2
 

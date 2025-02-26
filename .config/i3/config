@@ -46,6 +46,7 @@ bindsym $mod+g exec $fileManager
 
 # steam settings
 for_window [class="steam*"] floating enable
+for_window [class="Steam"] floating enable
 for_window [class="steam_app_*"] [floating] move position center
 for_window [class="steam_app_*"] move container to workspace 2 , focus
 assign [class="steam*"] $ws4
