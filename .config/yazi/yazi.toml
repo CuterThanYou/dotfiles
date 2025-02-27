@@ -1,11 +1,11 @@
 [manager]
-ratio          = [ 2, 3, 5 ]
+ratio          = [ 2, 4, 5 ]
 sort_by        = "alphabetical"
 sort_sensitive = false
 sort_reverse 	 = false
 sort_dir_first = true
 sort_translit  = false
-linemode       = "none"
+linemode       = "size"
 show_hidden    = false
 show_symlink   = true
 scrolloff      = 5
@@ -42,11 +42,8 @@ reveal = [
 extract = [
 	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
 ]
-play-video = [
+play-media = [
 	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
-]
-play-audio = [
-	{ run = 'mpv --no-video --force-window "$@"', orphan = true, for = "unix" },
 ]
 view-image = [
 	{ run = 'mpv --config-dir=$XDG_CONFIG_HOME/mpi "$@"', desc = "Image viewer", orphan = true, for = "unix" },
@@ -60,8 +57,8 @@ rules = [
 	{ name = "*/", use = [ "edit", "reveal" ] }, # folder
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	{ mime = "image/*", use = [ "view-image", "reveal" ] },
-	{ mime = "audio/*", use = [ "play-audio", "reveal" ] },
-	{ mime = "video/*", use = [ "play-video", "reveal" ] },
+	{ mime = "audio/*", use = [ "play-media", "reveal" ] },
+	{ mime = "video/*", use = [ "play-media", "reveal" ] },
 	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal" ] },
 	{ mime = "application/{json,ndjson}", use = [ "edit", "reveal" ] },
 	{ mime = "*/javascript", use = [ "edit", "reveal" ] }, # java shit, why is this not in text/*
