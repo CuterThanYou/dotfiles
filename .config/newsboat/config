@@ -1,5 +1,3 @@
-cache-file "~/.cache/newsboat/cache.db"
-#external-url-viewer "urlview"
 prepopulate-query-feeds yes
 
 #feedlist-format "%4i %n %11u%> %t"
