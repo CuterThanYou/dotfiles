@@ -13,7 +13,7 @@ stty stop undef # disable ctrl-s to freeze "feature" since i might accidently pr
 HISTFILE="$XDG_CACHE_HOME/zsh_history"
 HISTSIZE=97379
 SAVEHIST=97379
-HISTORY_IGNORE="(ls|ls *| *|)"
+HISTORY_IGNORE="(ls|ls *| *|exit|)"
 setopt hist_ignore_all_dups
 setopt inc_append_history # write history immediately
 
@@ -54,10 +54,8 @@ export GIT_AUTHOR_DATE="$(date -u +%F)T00:00:00+0000"
 export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"
 
 # need source to be at last
-# check for arch, gentoo and fedor,why do they store this in different place >:(
+# check for arch and gentoo, why do they store this in different place >:(
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null \
-	|| source /usr/share/zsh/site-functions/zsh-syntax-highlighting.zsh 2>/dev/null \
-	|| source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	|| source /usr/share/zsh/site-functions/zsh-syntax-highlighting.zsh 2>/dev/null
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null \
-	|| source /usr/share/zsh/site-functions/zsh-autosuggestions.zsh 2>/dev/null \
-	|| source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+	|| source /usr/share/zsh/site-functions/zsh-autosuggestions.zsh 2>/dev/null

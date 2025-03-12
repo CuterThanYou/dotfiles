@@ -19,7 +19,7 @@ fi
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # user variables
-export PATH="$HOME/.local/bin/:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"

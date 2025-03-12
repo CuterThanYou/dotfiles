@@ -23,7 +23,7 @@ alias scp="scp -r"
 alias df="df -h"
 alias du="du -h"
 alias rsync="rsync -uPrv"
-alias dd="dd bs=4M status=progress"
+alias dd="dd status=progress"
 
 # color
 alias grep="grep --color=always"
@@ -37,7 +37,7 @@ alias goOutside="doas emerge -avuDN @world --keep-going"
 alias yeet="doas pacman -Rns"
 alias goodnight="shutdown -h now"
 
-alias mpnv="mpv --no-video"
+alias mpnv="mpv --no-video --directory-mode=recursive"
 alias vi="nvim"
 alias myconfig="git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME"
 alias etcport="git --git-dir=$HOME/.config/.etc-portage --work-tree=/etc/portage"
