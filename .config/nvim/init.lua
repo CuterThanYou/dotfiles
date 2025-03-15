@@ -5,6 +5,7 @@ local map = vim.keymap.set
 map('v', '<C-c>', '"+y')
 map('n', '<C-v>', '"+p')
 map('i', '<C-v>', '<Esc>"+pa')
+map('n', '<C-c>', ':let @+ = @0<CR>') -- copy yank register to system clipboard
 
 map('n', '<Leader>r', ':so ~/.config/nvim/init.lua<CR>') -- reload config
 
@@ -26,8 +27,6 @@ require('nvim-highlight-colors').setup({})
 
 -- language server
 local lsp = require('lspconfig')
--- C {{{
-lsp.clangd.setup({}) -- }}}
 -- rust {{{
 lsp.rust_analyzer.setup {
 	settings = {
@@ -45,6 +44,8 @@ lsp.rust_analyzer.setup {
 } -- }}}
 -- }}}
 
+vim.opt.scroll = math.floor(0.3 * vim.o.lines) -- 1/3 scroll for ctrl-d, ctrl-u
+vim.opt.swapfile = false -- no auto-save
 -- netrw
 vim.g.netrw_banner = 0
 vim.g.netrw_dirhistmax = 0 -- disable history
@@ -66,6 +67,11 @@ vim.opt.listchars:append {
 	trail="+",
 	leadmultispace=".",
 }
+-- bloat, what are these even
+vim.g.loaded_node_provider = 0 -- yucky
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
 
 -- color
 vim.opt.termguicolors = true
@@ -78,6 +84,7 @@ vim.api.nvim_set_hl(0, 'LineNr', { fg='#74c7ec' })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#cba6f7' })
 
 -- languages specifics {{{
+vim.g.c_syntax_for_h = true
 -- fuck you rust doc, can't tell me what to do, 4 spaces my ass
 vim.g.rust_recommended_style = false -- use tab instead of space
 vim.g.python_recommended_style = false -- shite language
@@ -86,21 +93,26 @@ vim.api.nvim_create_autocmd('FileType', {
 	pattern = { 'haskell' },
 	command = 'set expandtab',
 })
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = { 'markdown' },
+	callback = function()
+		vim.opt.linebreak = true
+		vim.treesitter.start()
+	end
+})
 -- }}}
 
 -- open in tab {{{
 vim.g.netrw_browse_split = 3 -- netrw open in new tab, well except for `%`
 map({'n', 'v'}, 'gf', '<C-w>gf') -- gf open in new tab
-
--- open in tab instead of split
-vim.api.nvim_create_autocmd('BufNew', {
-	pattern = '*',
-	callback = function() -- ignore netrw since it already has an option to open in tab
-		if vim.bo.filetype ~= 'netrw' then
-			vim.cmd('wincmd T')
-		end
+-- open :h in tab instead of split
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = 'help',
+	callback = function()
+		vim.cmd('wincmd T')
 	end
 }) -- }}}
+
 
 -- restore cursor on exit (not needed if u use vi mode in your interactive shell) {{{
 --[[
