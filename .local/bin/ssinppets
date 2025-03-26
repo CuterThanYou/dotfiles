@@ -22,10 +22,10 @@ choose_file(){
 
 paste(){
 	choose_file &&
-	# need to create a variable since otherwise it will insert a \n at the end
-	text=$(grep -v '^#' "$file_to_open" | $menu --placeholder="text to paste" | sed 's/ # .*//') && \
-		wtype -- "$text"
-		#echo "type $text" | dotool
+		grep -v -e '^#' -e '^\s*$' "$file_to_open" |
+		$menu --placeholder="text to paste" |
+		sed 's/ # .*//' | tr -d '\n' |
+		wtype -
 }
 
 save(){
@@ -49,7 +49,3 @@ case "$1" in
 	"save") save || exit ;;
 	*) echo "wrong argument" ; exit ;;
 esac
-
-# these will create a new line at the end
-#grep -v '^#' "$file_to_open" | fuzzel --dmenu | sed 's/ # //' | ydotool type -f -
-#grep -v '^#' "$file_to_open" | fuzzel --dmenu | sed 's/ # //' | wtype -
