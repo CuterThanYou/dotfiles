@@ -1,20 +1,19 @@
 #!/bin/sh
 
-
 # misspell snippet teehee, kept to cuz it's funny
-## fuzzel for menu, ydotool to paste
+## fuzzel for menu, wtype to paste, and reqire vim/nvim as $EDITOR
 
 # will look for files in $store_dir variable
-store_dir="$HOME/docs/snippets"
-#store_dir="$XDG_DOCUMENTS_DIR/snippets"
+store_dir="$XDG_DATA_HOME/ssinppets"
+menu="fuzzel --dmenu"
 
 choose_file(){
 	if [ "$1" = "save" ]; then
 		# add 'create a new file' option in save mode
-		choose_file=$( (ls "$store_dir"; echo "Create a new file") | fuzzel --dmenu --placeholder="file to open")
+		choose_file=$( (ls "$store_dir"; echo "Create a new file") | $menu --placeholder="file to open")
 		[ "$choose_file" = "Create a new file" ] && create_file && return 1
 	else
-		choose_file=$(ls "$store_dir" | fuzzel --dmenu --placeholder="file to open")
+		choose_file=$(ls "$store_dir" | $menu --placeholder="file to open")
 	fi
 	[ -z "$choose_file" ] && exit 1
 	file_to_open="$store_dir/$choose_file"
@@ -22,26 +21,26 @@ choose_file(){
 }
 
 paste(){
-	choose_file && \
+	choose_file &&
 	# need to create a variable since otherwise it will insert a \n at the end
-	text=$(grep -v '^#' "$file_to_open" | fuzzel --dmenu --placeholder="text to paste" | sed 's/ # .*//') && \
-		wtype "$text"
+	text=$(grep -v '^#' "$file_to_open" | $menu --placeholder="text to paste" | sed 's/ # .*//') && \
+		wtype -- "$text"
 		#echo "type $text" | dotool
 }
 
 save(){
-	choose_file save && \
-	foot -e "$EDITOR" "$file_to_open" # meh, will probably come up with better solution later
+	choose_file save &&
+	$TERMINAL -e "$EDITOR" "$file_to_open" # meh, will probably come up with better solution later
 }
 
 create_file(){
-	file_name=$(fuzzel --dmenu --prompt-only= --placeholder="enter the filename")
+	file_name=$($menu --prompt-only= --placeholder="enter the filename")
 	[ -z "$file_name" ] && exit 1
 	location="$store_dir/$file_name"
 	[ -e "$location" ] && notify-send "file already exists" && exit 1
-	touch "$location" && \
-		echo "# vim:ft=conf" >> "$location"
-		foot -e "$EDITOR" "$location"
+	$TERMINAL -e "$EDITOR" -c "norm o#vim:ft=conf" -c "1 | setfiletype conf" "$location" # require vim/nvim
+	#touch "$location" && echo -e "\n# vim:ft=conf" >> "$location" # this is for non-vim
+	#$TERMINAL -e "$EDITOR" "$location"
 }
 
 # main
