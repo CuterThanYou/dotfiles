@@ -3,9 +3,6 @@ import = [
 	"~/.config/alacritty/catppuccin-mocha.toml"
 ]
 
-[env]
-TERM= "xterm-256color"
-
 [font]
 normal = { family = "monospace", style = "Regular"}
 size = 12
@@ -18,14 +15,11 @@ shape = "Underline"
 blinking = "Always"
 
 [window]
-#decorations = "None"
 padding               = { x = 9, y = 9 }
 opacity               = 0.5
-#blur = true
-#decorations_theme_varient = "Dark"
 
 [colors]
-transparent_background_colors = true
+transparent_background_colors = false # transparency for cell background
 
 [mouse]
 hide_when_typing = true
