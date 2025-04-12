@@ -60,6 +60,8 @@ vim.opt.mouse=""
 -- case sensitive search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+-- dont open fold when using '{' '}'
+vim.opt.foldopen:remove("block")
 -- whitespace indicator
 vim.opt.list = true
 vim.opt.listchars:append {
@@ -82,6 +84,15 @@ vim.api.nvim_set_hl(0, 'Normal', {ctermbg = 'NONE'})
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#cba6f7' })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='#74c7ec' })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#cba6f7' })
+-- enable tree-shitter
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = {
+		'c', 'lua', 'markdown', 'vim', 'vimdoc', 'markdown', 'query',
+	},
+	callback = function()
+		vim.treesitter.start()
+	end
+})
 
 -- languages specifics {{{
 vim.g.c_syntax_for_h = true
@@ -97,7 +108,6 @@ vim.api.nvim_create_autocmd('FileType', {
 	pattern = { 'markdown' },
 	callback = function()
 		vim.opt.linebreak = true
-		vim.treesitter.start()
 	end
 })
 -- }}}
