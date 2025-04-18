@@ -1,0 +1,98 @@
+# irrelevent {{{
+set shell sh
+set shellopts '-eu'
+set ifs "\n"
+set cursorpreviewfmt "\033[7;2m"
+set mouse
+# }}}
+
+set ratios 2:4:5
+#set drawbox
+set sixel
+set icons
+set previewer '~/.config/lf/previewer'
+
+set promptfmt "\033[35;1m%u\033[0m@\033[35;1m%h\033[0m:\033[32;1m%d\033[0m\033[1m%f\033[0m"
+set errorfmt "\033[1;31m"
+set statfmt "\033[1;32m%p| \033[35m%u:%g| \033[34m%S| \033[36m-> %l\033[0m"
+set rulerfmt "%a| %p| \033[7;31m %m \033[0m| \033[7;33m %c \033[0m| \033[7;35m %s \033[0m| \033[7;34m %f \033[0m| \033[1m%i/%t\033[0m"
+
+# keybinds {{{
+
+# unbinds {{{
+map x
+map d
+map c
+# }}}
+
+map Q %{{ lf -remote "send $id :cd $OLDPWD; quit" }} # dont change dir on quit
+map . set hidden!
+map <enter> open
+map x cut
+map D delete
+map a :push %mkdir<space>
+
+map gq echo '' # to stop throwing `unknown mapping` error
+map gh cd ~
+map gc cd ~/.config
+map gd cd ~/docs
+map gD cd ~/downloads
+map gm cd ~/media
+map gr cd ~/downloads/repos
+map gp cd ~/docs/projects
+
+map cc copy_to_clipboard
+
+map X clear
+map Y clear
+
+# dedicated keys for file opener actions
+#map o &mimeopen $f
+#map O $mimeopen --ask $f
+# }}}
+
+# define a custom 'open' command {{{
+cmd open &{{
+	case $(file --mime-type -Lb $f) in
+		text/*|application/json) lf -remote "send $id \$$EDITOR \$fx";;
+		*) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+	esac
+}}
+# }}}
+
+# functions {{{
+
+cmd delete ${{
+	set -f
+	printf "$fx\n"
+	printf "delete?[y/n]"
+	read ans
+	[ "$ans" = "y" ] && rm -rf $fx
+}}
+
+cmd copy_to_clipboard &{{
+	set +u # test vars might be empty
+	if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+		# TODO: copy to host clipboard
+		exit
+	elif [ -n "$WAYLAND_DISPLAY" ]; then
+		printf '%s' "$f" | wl-copy
+	elif [ -n "$DISPLAY" ]; then
+		printf '%s' "$f" | xclip -selection clipboard
+	fi	
+}}
+
+cmd extract ${{
+	set -f
+	case $f in
+		*.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+		*.tar.gz|*.tgz) tar xzvf $f;;
+		*.tar.xz|*.txz) tar xJvf $f;;
+		*.zip) unzip $f;;
+		*.rar) 7z x $f;;
+		*.7z) 7z x $f;;
+ esac
+}}
+# }}}
+
+# vim:foldmethod=marker

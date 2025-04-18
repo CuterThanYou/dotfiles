@@ -13,7 +13,7 @@ yz() {
 
 # go to last dir on lf exit
 lfcd() { cd "$(command lf -print-last-dir"$@")" }
-alias lf=lfcd
+alias lf="COLORTERM=truecolor lfcd" # lf doesn't detact truecolor in ssh session
 
 alias rm="rm -Ivr"
 alias mkdir="mkdir -pv"
