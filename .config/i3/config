@@ -1,4 +1,5 @@
-### Won't be updated anymore
+### * Won't be updated anymore
+#   * having this in case i need to test in different wm
 
 font pango: monospace 8
 
@@ -9,27 +10,18 @@ gaps inner 15
 gaps outer 3
 
 # switch to colemak_dh
-exec "kmonad $HOME/.config/kmonad/Meh.kbd"
 #exec "setxkbmap us -variant colemak_dh"
-
-# key repeat rate
-exec_always --no-startup-id (sleep 5 && xset r rate 259 43)&
 
 # startup program
 exec --no-startup-id dex --autostart --environment i3
-exec_always --no-startup-id feh --bg-fill --no-fehbg $XDG_DATA_HOME/wallpaper
-exec_always --no-startup-id picom
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id dunst
 
-exec kdeconnectd
-exec redshift
+# key repeat rate, need to be run after wm has started
+exec_always --no-startup-id xset r rate 259 43
 
 # variables
 set $browser "TZ=UTC firefox"
 set $menu "rofi -show drun"
 set $terminal "alacritty"
-set $fileManager "thunar"
 
 # modifier key
 set $mod Mod4
@@ -44,7 +36,6 @@ bindsym $mod+Tab exec --no-startup-id rofi -show window
 # program keybinds
 bindsym $mod+Return exec $terminal
 bindsym $mod+z exec $browser
-bindsym $mod+g exec $fileManager
 
 # steam settings
 for_window [class="steam*"] floating enable
@@ -57,9 +48,9 @@ assign [class="steam*"] $ws4
 bindsym $mod+s exec "$HOME/.local/bin/screenshot full"
 bindsym --release $mod+Shift+s exec "$HOME/.local/bin/screenshot select"
 
-# Use pactl to adjust volume in PulseAudio.
-bindsym $mod+semicolon exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym $mod+y exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% 
+# adjust volume
+bindsym $mod+semicolon exec --no-startup-id "wpctl set-volume -l 1 @DEFAULT_SINK@ 5%+"
+bindsym $mod+y exec --no-startup-id "wpctl set-volume @DEFAULT_SINK@ 5%-"
 
 # brightness
 bindsym $mod+Shift+semicolon exec "brightnessctl -e set 5%+"
@@ -119,7 +110,6 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+q workspace number $ws1
@@ -143,10 +133,6 @@ bindsym $mod+Shift+u move container to workspace number $ws8
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

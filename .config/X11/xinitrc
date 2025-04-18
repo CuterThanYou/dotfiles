@@ -1,5 +1,10 @@
 #!/bin/sh
 
+### disable time out
+#xset -dpms
+#xset s off
+
+### startup program
 feh --bg-fill --no-fehbg "$XDG_DATA_HOME/wallpaper"
 picom &
 kmonad "$XDG_CONFIG_HOME/kmonad/swapAltAndMeta.kbd" &
@@ -7,5 +12,6 @@ kdeconnectd &
 redshift &
 dunst &
 
-# muh LOC
-exec dwm
+### start wm, only one exec in last
+exec dwm # muh LOC
+#exec i3
