@@ -39,10 +39,6 @@ case "$(file -Lb --mime-type -- "$1")" in
 		fi
 		exit 1;; # }}}
 
-	audio/*) # {{{
-		exiftool "$1"
-		;; # }}}
-
 	application/json) # {{{
 		jq --color-output . "$1" || cat "$1"
 		;; # }}}
@@ -61,16 +57,18 @@ case "$(file -Lb --mime-type -- "$1")" in
 		tar -tf "$1"
 		;; # }}}
 
-	application/*executable) # {{{
-		file -bL "$1" | tr ',' '\n'
-		;; # }}}
-
 	text/*) # {{{
-		cat "$1"
+		expand -t 2 "$1"
 		;; # }}}
 
 	*) # {{{
+		printf "\033[1;34mMimetype : "
 		file -Lb --mime-type -- "$1"
+
+		for i in $(seq 1 "$2"); do printf '='; done # separtor
+		printf "\033[0m\n"
+
+		file -bL "$1" | tr ',' '\n'
 		;; # }}}
 esac
 

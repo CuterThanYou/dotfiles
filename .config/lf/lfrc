@@ -41,7 +41,12 @@ map gm cd ~/media
 map gr cd ~/downloads/repos
 map gp cd ~/docs/projects
 
-map cc copy_to_clipboard
+
+map cq echo ''
+map cc copy_to_clipboard fullpath
+map cf copy_to_clipboard filename
+map cd copy_to_clipboard directory
+
 
 map X clear
 map Y clear
@@ -70,16 +75,18 @@ cmd delete ${{
 	[ "$ans" = "y" ] && rm -rf $fx
 }}
 
-cmd copy_to_clipboard &{{
-	set +u # test vars might be empty
-	if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-		# TODO: copy to host clipboard
-		exit
-	elif [ -n "$WAYLAND_DISPLAY" ]; then
-		printf '%s' "$f" | wl-copy
-	elif [ -n "$DISPLAY" ]; then
-		printf '%s' "$f" | xclip -selection clipboard
-	fi	
+# using `&{{` doesn't work so just have to see flicker for now
+cmd copy_to_clipboard ${{
+	case "$1" in
+	"fullpath") text_to_encode="$f" ;;
+	"filename") text_to_encode="$(basename $f)" ;;
+	"directory") text_to_encode="$(dirname $f)" ;;
+	*) exit ;;
+	esac
+
+	# osc52 copy
+	encoded_text="$(printf "$text_to_encode" | base64)"
+	printf "\033]52;c;%s\007" "$encoded_text"
 }}
 
 cmd extract ${{
