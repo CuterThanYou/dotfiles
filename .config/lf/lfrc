@@ -30,7 +30,7 @@ map . set hidden!
 map <enter> open
 map x cut
 map D delete
-map a :push %mkdir<space>
+map a push :mkdir<space>
 
 map gq echo '' # to stop throwing `unknown mapping` error
 map gh cd ~
@@ -66,6 +66,12 @@ cmd open &{{
 # }}}
 
 # functions {{{
+cmd mkdir %{{
+	IFS=" "
+	file="$*"
+	mkdir -p -- "$file"
+	lf -remote "send $id cd \"$(printf '%s' "$file" | sed 's/\\/\\\\/g;s/"/\\"/g')\""
+}}
 
 cmd delete ${{
 	set -f

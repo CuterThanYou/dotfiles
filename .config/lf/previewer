@@ -19,7 +19,8 @@ genThumbnail(){ # {{{
 		#-f image2 pipe:1
 } # }}}
 
-case "$(file -Lb --mime-type -- "$1")" in
+MIME="$(file -Lb --mime-type -- "$1")"
+case "$MIME" in
 
 	image/*) # {{{
 		chafa -f sixel -s "$2x$3" --animate off --polite on "$1" || echo "failed to preview image"
@@ -35,7 +36,7 @@ case "$(file -Lb --mime-type -- "$1")" in
 		if [ -f "$THUMB_CACHE" ]; then
 			chafa "$THUMB_CACHE" || echo "failed to preview video"
 		else
-			genThumbnail "$1" && chafa "$THUMB_CACHE" || echo "failed to preview video"
+			genThumbnail "$1" && chafa -f sixel "$THUMB_CACHE" || echo "failed to preview video"
 		fi
 		exit 1;; # }}}
 
@@ -57,15 +58,14 @@ case "$(file -Lb --mime-type -- "$1")" in
 		tar -tf "$1"
 		;; # }}}
 
-	text/*) # {{{
+	text/*|application/javascript) # {{{
 		expand -t 2 "$1"
 		;; # }}}
 
 	*) # {{{
-		printf "\033[1;34mMimetype : "
-		file -Lb --mime-type -- "$1"
+		printf "\033[1;34mMimetype : %s\n" "$MIME"
 
-		for i in $(seq 1 "$2"); do printf '='; done # separtor
+		for i in $(seq 1 "$2"); do printf '='; done # separator
 		printf "\033[0m\n"
 
 		file -bL "$1" | tr ',' '\n'
