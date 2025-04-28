@@ -31,17 +31,15 @@ export MANPAGER="nvim +Man!" # its so slow but whatever
 export SCREENSHOTS_DIR="$HOME/media/screenshots"
 
 # home clean up {{{
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
 export DISTCC_DIR="/tmp/distcc"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 
 ## rust
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export RUSTUP_HOME="$XDG_DATA_HOME/rustup" # can't install on gentoo with this option
 export PATH="$PATH:$CARGO_HOME/bin"
 ## haskell
 export STACK_XDG=1
@@ -53,7 +51,7 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export PATH="$PATH:$XDG_DATA_HOME/npm/bin"
 ## xorg
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
-export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
+export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 # }}}
 
 # other export
