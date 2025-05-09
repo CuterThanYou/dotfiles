@@ -1,13 +1,14 @@
-#! /bin/sh
-output="$SCREENSHOTS_DIR/$(date +%Y%m%d%H%M-screenshot.png)"
+#!/bin/sh
+
+output="$SCREENSHOTS_DIR/$(date +%Y-%m-%d-%H:%M:%S.png)"
 
 case "$1" in
-    "window") scrot "$output" --focused --border -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
-    "select") scrot "$output" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
-    "full") scrot "$output" -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
-	 # wayland
-	 "select-wl") grim -g "$(slurp)" "$output" && wl-copy < "$output" || exit ;;
-    "full-wl") grim "$output" && wl-copy < "$output" || exit ;;
+	"window") scrot "$output" --focused --border -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
+	"select") scrot "$output" --select --line mode=edge -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
+	"full") scrot "$output" -e 'xclip -selection clipboard -t image/png -i $f' || exit ;;
+	# wayland
+	"select-wl") grim -g "$(slurp)" "$output" && wl-copy --type image/png < "$output" || exit ;;
+	"full-wl") grim "$output" && wl-copy --type image/png < "$output" || exit ;;
 esac
 
 notify-send "Screenshot taken."
