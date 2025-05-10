@@ -25,12 +25,17 @@ map d
 map c
 # }}}
 
+map e down
+map i up
+
 map Q %{{ lf -remote "send $id :cd $OLDPWD; quit" }} # dont change dir on quit
 map . set hidden!
 map <enter> open
 map x cut
 map D delete
 map a push :mkdir<space>
+
+map <c-f> :fzf_jump
 
 map gq echo '' # to stop throwing `unknown mapping` error
 map gh cd ~
@@ -93,6 +98,19 @@ cmd copy_to_clipboard ${{
 	# osc52 copy
 	encoded_text="$(printf "$text_to_encode" | base64)"
 	printf "\033]52;c;%s\007" "$encoded_text"
+}}
+
+cmd fzf_jump ${{
+	res="$(find . -maxdepth 1 | fzf --reverse --header="Jump to location")"
+	if [ -n "$res" ]; then
+		if [ -d "$res" ]; then
+			cmd="cd"
+		else
+			cmd="select"
+		fi
+		res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+		lf -remote "send $id $cmd \"$res\""
+	fi
 }}
 
 cmd extract ${{

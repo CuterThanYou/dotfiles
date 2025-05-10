@@ -49,9 +49,7 @@ case "$MIME" in
 		;; # }}}
 
 	application/x-7z-compressed|application/vnd.rar) # {{{
-		# https://stackoverflow.com/questions/55355466/7z-list-only-filenames
-		# there is no 7z documentaton so its just great
-		7z l -ba "$1" | grep -vF 'D....' | grep -oP '(?<=^.{53}).*'
+		7zz l -ba -slt "$1" | grep -oP '(?<=Path = ).*$'
 		;; # }}}
 
 	*/x-tar|*/x-xz|*/zstd|*/gzip|*/x-bzip2) # {{{
