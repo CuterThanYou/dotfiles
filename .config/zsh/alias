@@ -1,18 +1,19 @@
-#! /bin/sh
+#!/bin/sh
 
 # go to last dir on yazi exit, Q to keep the same dir
-# this function is bash but putting here for organization
 yz() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
 		builtin cd -- "$cwd"
 	fi
-	command rm -f -- "$tmp" # command to ignore alias
+	command rm -f -- "$tmp" # `command` to ignore alias
 }
 
 # go to last dir on lf exit
-lfcd() { cd "$(command lf -print-last-dir"$@")" }
+lfcd() {
+	cd "$(command lf -print-last-dir "$@")"
+}
 alias lf="COLORTERM=truecolor lfcd" # lf doesn't detact truecolor in ssh session
 
 alias rm="rm -Ivr"
@@ -24,6 +25,7 @@ alias df="df -h"
 alias du="du -h"
 alias rsync="rsync -uPrv"
 alias dd="dd status=progress"
+alias ffmpeg="ffmpeg -hide_banner" # hide build flags
 
 # color
 alias grep="grep --color=always"
@@ -42,6 +44,5 @@ alias vi="nvim"
 alias myconfig="git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME"
 alias etcport="git --git-dir=$HOME/.config/.etc-portage --work-tree=/etc/portage"
 
-# temp solution for now since there're no good image viewer in wheyland (which will be ready in the next 10 years probably)
 # https://github.com/occivink/mpv-image-viewer
 alias mpi="mpv --config-dir=$HOME/.config/mpi"

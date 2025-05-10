@@ -7,14 +7,16 @@ PROMPT='%B%F{magenta}%n %F{blue}%~ ${vcs_info_msg_0_}%F{blue}%F{183}»%f%b '
 
 # features
 setopt interactive_comments # comments in interactive shell
+setopt hist_find_no_dups
 stty stop undef # disable ctrl-s to freeze "feature" since i might accidently press it
 
 # history
 HISTFILE="$XDG_CACHE_HOME/zsh_history"
 HISTSIZE=97379
 SAVEHIST=97379
-HISTORY_IGNORE="(ls|ls *| *|exit|)"
+HISTORY_IGNORE="(ls|ls *|exit|)"
 setopt hist_ignore_all_dups
+setopt hist_ignore_space
 setopt inc_append_history # write history immediately
 
 # auto complete
@@ -58,6 +60,10 @@ zle -N zle-keymap-select
 export GIT_AUTHOR_DATE="$(date -u +%F)T00:00:00+0000"
 #export GIT_AUTHOR_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"
+
+# integrate fzf with zsh
+# replace ctrl+r with fzf, ctrl+t to search files
+source <(fzf --zsh)
 
 # need source to be at last
 # check for arch and gentoo, why do they store this in different place >:(
