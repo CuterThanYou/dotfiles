@@ -46,3 +46,9 @@ alias etcport="git --git-dir=$HOME/.config/.etc-portage --work-tree=/etc/portage
 
 # https://github.com/occivink/mpv-image-viewer
 alias mpi="mpv --config-dir=$HOME/.config/mpi"
+
+# change nmtui color with NEWT_COLORS; can also do NEWT_MONO=1
+command -v nmtui >/dev/null 2>&1 &&
+	for i in "nmtui" "nmtui-edit" "nmtui-connect" "nmtui-hostname"; do
+		alias "$i"="NEWT_COLORS_FILE=$XDG_CONFIG_HOME/newt/transparent_nmtui $i"
+	done

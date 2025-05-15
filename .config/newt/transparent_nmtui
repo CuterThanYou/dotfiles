@@ -1,0 +1,37 @@
+root=default,default
+border=blue,default
+window=default,default
+shadow=,default
+
+title=magenta,default
+label=cyan,default
+
+actlistbox=magenta,default
+compactbutton=blue,default
+checkbox=blue,default
+
+# normal text (default is lighter than lightgray in my colortheme)
+listbox=default,default
+entry=default,default
+#listbox=lightgray,default
+#entry=lightgray,default
+
+# selection
+button=red,default
+actsellistbox=red,default
+
+disentry=black,default
+
+# syntax: variables=foreground,background
+
+# unused variables:
+#actbutton=
+#actcheckbox=
+#sellistbox=
+#textbox=
+#acttextbox=
+#emptyscale=
+#fullscale=
+#helpline=
+
+# vim:ft=conf
