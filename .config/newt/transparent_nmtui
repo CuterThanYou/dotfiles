@@ -9,29 +9,33 @@ label=cyan,default
 actlistbox=magenta,default
 compactbutton=blue,default
 checkbox=blue,default
+disentry=black,default
 
 # normal text (default is lighter than lightgray in my colortheme)
 listbox=default,default
 entry=default,default
+textbox=default,default
 #listbox=lightgray,default
 #entry=lightgray,default
 
 # selection
 button=red,default
 actsellistbox=red,default
+actbutton=default,red
 
-disentry=black,default
-
-# syntax: variables=foreground,background
+# nmtui specific (read from $NMT_NEWT_COLORS_FILE)
+plainLabel=green,default
+textboxWithBackground=default,red
+badLabel=red,default # dont know where this is used
+disabledButton=black,default
 
 # unused variables:
-#actbutton=
 #actcheckbox=
 #sellistbox=
-#textbox=
 #acttextbox=
 #emptyscale=
 #fullscale=
 #helpline=
+#roottext=
 
 # vim:ft=conf

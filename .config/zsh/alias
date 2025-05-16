@@ -49,6 +49,8 @@ alias mpi="mpv --config-dir=$HOME/.config/mpi"
 
 # change nmtui color with NEWT_COLORS; can also do NEWT_MONO=1
 command -v nmtui >/dev/null 2>&1 &&
+	nmtui_color="$XDG_CONFIG_HOME/newt/transparent_nmtui"
 	for i in "nmtui" "nmtui-edit" "nmtui-connect" "nmtui-hostname"; do
-		alias "$i"="NEWT_COLORS_FILE=$XDG_CONFIG_HOME/newt/transparent_nmtui $i"
+		# duct tape
+		alias "$i"="NEWT_COLORS_FILE=$nmtui_color NMT_NEWT_COLORS_FILE=$nmtui_color $i"
 	done
