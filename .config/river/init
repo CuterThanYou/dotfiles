@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC2004
 
 # started from ~/.local/bin/start_river
 # zbus and sustemd
@@ -12,6 +13,9 @@ riverctl spawn "kmonad ~/.config/kmonad/Meh.kbd"
 # set fractional scaling
 riverctl spawn "wlr-randr --output eDP-1 --scale 2.0"
 
+# Set keyboard repeat rate
+riverctl set-repeat 43 259
+
 # start up programs
 riverctl spawn "hypridle" # idle manager
 riverctl spawn "killall yambar ; yambar -c ~/.config/yambar/river.yml" # status bar
@@ -21,24 +25,26 @@ riverctl spawn "killall wbg ; wbg $XDG_DATA_HOME/wallpaper" # wallpaper
 # variables
 menu=fuzzel
 
+# pointers settings {{{
 pointers="$(riverctl list-inputs | grep pointer)" # both mouse and trackpad
 touchpad="$(riverctl list-inputs | grep Trackpad | tail -n 1)"
 
 # mouse and trackpad
-for i in $(seq 1 "$(echo "$pointers" | wc -l)")
-do
-	pointer="$(echo "$pointers" | sed -n "${i}p")"
+while IFS= read -r pointer; do
 	riverctl input "$pointer" natural-scroll disabled
 	riverctl input "$pointer" accel-profile flat
-done
+done << EOF
+$pointers
+EOF
+riverctl focus-follows-cursor disabled
 
 # trackpad specific
 riverctl input "$touchpad" pointer-accel 1.0
 riverctl input "$touchpad" click-method clickfinger
 riverctl input "$touchpad" disable-while-typing enabled
-riverctl focus-follows-cursor disabled
+# }}}
 
-# keybinds (colemak-dh)
+# keybinds (colemak-dh) {{{
 riverctl map normal Super Return spawn foot
 riverctl map normal Super X close
 riverctl map normal Super Space zoom # move focused window to main
@@ -80,11 +86,10 @@ riverctl spawn-tagmask ${all_but_sticky_tag}
 # q w f p b j l u for tags(not workspaces) shortcuts
 set -- q w f p b j l u
 # ^ have to set array with positional arguments since posix sh doesn't have array
-for i in $(seq 1 8)
+for i in 1 2 3 4 5 6 7 8
 do
 	tags=$((1 << (i - 1)))
 	kb=$(eval echo "\$$i")
-	#kb=$(eval echo \$$((i + 1))) # use this for (seq 0 7)
 
 	 # move focus with q w f p b j l u (defined at the top with set)
 	 riverctl map normal Super "$kb" set-focused-tags $(($sticky_tag + $tags))
@@ -182,6 +187,7 @@ do
     riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl -e set +5%'
     riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl -e set 5%-'
 done
+# }}}
 
 # Set background and border color
 riverctl background-color 0x1e1e2e # catppuccin base
@@ -190,18 +196,15 @@ riverctl border-color-unfocused 0x6c7086 # overlay0
 riverctl border-color-urgent 0xfab387 # peach
 riverctl border-width 2
 
-# Set keyboard repeat rate
-riverctl set-repeat 43 259
-
-# windows rules
+# windows rules {{{
 riverctl rule-add ssd # use server side decorations
 
 ## open in specific tag
 riverctl rule-add -app-id 'firefox' tags $((1 << 2)) # tag 3
 ## steam
-riverctl rule-add -app-id 'steam*' float
-riverctl rule-add -app-id 'Steam' float
-riverctl rule-add -app-id 'steam*' tags $((1 << 3)) # tag 4
+riverctl rule-add -app-id 'steam' float
+riverctl rule-add -app-id 'Zenity' float
+riverctl rule-add -app-id 'steam' tags $((1 << 4)) # tag 5
 riverctl rule-add -title 'steam_app_*' tags $((1 << 1)) # tag 2
 
 ## picture in picture
@@ -211,10 +214,12 @@ riverctl rule-add -title "Picture-in-Picture" tags $sticky_tag # doesn't work
 
 riverctl rule-add -title "QEMU" float
 riverctl rule-add -title "QEMU" tags $((1 << 1)) # tag 2
-
+# }}}
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
 #riverctl default-attach-mode below # newly spawn windows are below focused window
-rivertile -main-location left -view-padding 3 -outer-padding 7 -main-ratio 0.6 &
+rivertile -main-location left -view-padding 3 -outer-padding 7 -main-ratio 0.57 &
+
+# vim:fdm=marker
