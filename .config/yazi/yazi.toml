@@ -35,8 +35,9 @@ reveal = [
 	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
 	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 
-	# these two are useful for opening the whole directory
+	# these are useful for opening the whole directory
 	{ run = 'mpv --force-window "$@"', desc = "open in MPV", orphan = true, for = "unix" },
+	{ run = 'mpv --no-video --directory-mode=recursive "$@"', desc = "Music player", block = true, for = "unix" },
 	{ run = 'mpv --config-dir=$XDG_CONFIG_HOME/mpi --force-window "$@"', desc = "Image Viewer", orphan = true, for = "unix" },
 ]
 extract = [

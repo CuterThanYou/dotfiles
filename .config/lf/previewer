@@ -40,7 +40,7 @@ case "$MIME" in
 		fi
 		exit 1;; # }}}
 
-	application/json) # {{{
+	application/json|application/x-ndjson) # {{{
 		jq --color-output . "$1" || cat "$1"
 		;; # }}}
 
@@ -49,7 +49,7 @@ case "$MIME" in
 		;; # }}}
 
 	application/x-7z-compressed|application/vnd.rar) # {{{
-		7zz l -ba -slt "$1" | grep -oP '(?<=Path = ).*$'
+		7z l -ba -slt "$1" | grep -oP '(?<=Path = ).*$'
 		;; # }}}
 
 	*/x-tar|*/x-xz|*/zstd|*/gzip|*/x-bzip2) # {{{

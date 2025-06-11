@@ -4,9 +4,11 @@ set shellopts '-eu'
 set ifs "\n"
 set cursorpreviewfmt "\033[7;2m"
 set mouse
+set history false
 # }}}
 
 set ratios 2:4:5
+set info size
 #set drawbox
 set sixel
 set icons
@@ -64,8 +66,9 @@ map Y clear
 # define a custom 'open' command {{{
 cmd open &{{
 	case $(file --mime-type -Lb $f) in
-		text/*|application/json) lf -remote "send $id \$$EDITOR \$fx";;
-		*) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+		text/*|application/*json|application/vnd.gentoo.*) lf -remote "send $id \$$EDITOR \$fx";;
+		*) notify-send "no mimetype for : $(basename $f)";;
+#		*) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
 	esac
 }}
 # }}}
