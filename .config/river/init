@@ -13,17 +13,14 @@ riverctl spawn "kmonad ~/.config/kmonad/Meh.kbd"
 # set fractional scaling
 riverctl spawn "wlr-randr --output eDP-1 --scale 2.0"
 
+riverctl allow-tearing enabled
+
 # Set keyboard repeat rate
 riverctl set-repeat 43 259
 
-# start up programs
-riverctl spawn "hypridle" # idle manager
-riverctl spawn "killall yambar ; yambar -c ~/.config/yambar/river.yml" # status bar
-riverctl spawn "fnott" # notification daemon
-riverctl spawn "killall wbg ; wbg $XDG_DATA_HOME/wallpaper" # wallpaper
-
 # variables
 menu=fuzzel
+screenlock="waylock -fork-on-lock -ignore-empty-password -init-color 0x1e1e2e -input-color 0xcba6f7 -fail-color 0xf38ba8"
 
 # pointers settings {{{
 pointers="$(riverctl list-inputs | grep pointer)" # both mouse and trackpad
@@ -106,8 +103,8 @@ do
 done
 
 # change size
-riverctl map normal Super N send-layout-cmd rivertile "main-ratio -0.05"
-riverctl map normal Super O send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map normal Super N send-layout-cmd rivertile "main-ratio -0.03"
+riverctl map normal Super O send-layout-cmd rivertile "main-ratio +0.03"
 
 # Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
 #riverctl map normal Super+Shift N send-layout-cmd rivertile "main-count +1"
@@ -146,7 +143,7 @@ riverctl map normal Super+Alt+Shift O resize horizontal 100
 # mouse binds
 riverctl map-pointer normal Super BTN_LEFT move-view
 riverctl map-pointer normal Super BTN_RIGHT resize-view
-riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+#riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 
 # Super+0 to focus all tags
 # Super+Shift+0 to tag focused view with all tags
@@ -169,32 +166,38 @@ riverctl map normal Super+Shift 0 set-view-tags $all_tags
 riverctl map normal Super S spawn "screenshot full-wl"
 riverctl map normal Super+Shift S spawn 'screenshot select-wl'
 
-# keybinds that works in locked mode
-for mode in normal locked
-do
-    # volume with pipewire
-    riverctl map $mode Super SemiColon spawn 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+'
-    riverctl map $mode Super Y spawn 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'
+# keybinds that works in locked mode {{{
+for mode in normal locked; do
+	# volume with pipewire
+	riverctl map -repeat $mode Super SemiColon spawn 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+'
+	riverctl map -repeat $mode Super Y spawn 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'
 
 	 # brightness
-    riverctl map $mode Super+Shift SemiColon spawn 'brightnessctl -e set +5%'
-    riverctl map $mode Super+Shift Y spawn 'brightnessctl -e set 5%-'
+	 riverctl map -repeat $mode Super+Shift SemiColon spawn 'brightnessctl -e set +5%'
+	 riverctl map -repeat $mode Super+Shift Y spawn 'brightnessctl -e set 5%-'
 
-    # xf86 key for the sake of having it, i don't actually use it
-    riverctl map $mode None XF86AudioRaiseVolume spawn 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+'
-    riverctl map $mode None XF86AudioLowerVolume spawn 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'
-    riverctl map $mode None XF86AudioMute spawn 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
-    riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl -e set +5%'
-    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl -e set 5%-'
-done
+	 # xf86 key for the sake of having it, i don't actually use it
+	 riverctl map -repeat $mode None XF86AudioRaiseVolume spawn 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+'
+	 riverctl map -repeat $mode None XF86AudioLowerVolume spawn 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'
+	 riverctl map $mode None XF86AudioMute spawn 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
+	 riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightnessctl -e set +5%'
+	 riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightnessctl -e set 5%-'
+ done # }}}
 # }}}
 
-# Set background and border color
-riverctl background-color 0x1e1e2e # catppuccin base
-riverctl border-color-focused 0xb4befe # lavender
-riverctl border-color-unfocused 0x6c7086 # overlay0
-riverctl border-color-urgent 0xfab387 # peach
+# Set background and border color {{{
+riverctl background-color 0x11111b # catppuccin crust
+riverctl border-color-focused 0xb4befecc # lavender
+riverctl border-color-unfocused 0x31324466 # overlay0
+riverctl border-color-urgent 0xfab387ff # peach
 riverctl border-width 2
+# }}}
+
+# lid events {{{
+riverctl map-switch normal lid close spawn "$screenlock; wlr-randr --output eDP-1 --off"
+riverctl map-switch locked lid close spawn "wlr-randr --output eDP-1 --off"
+riverctl map-switch locked lid open spawn "wlr-randr --output eDP-1 --on"
+# }}}
 
 # windows rules {{{
 riverctl rule-add ssd # use server side decorations
@@ -203,9 +206,12 @@ riverctl rule-add ssd # use server side decorations
 riverctl rule-add -app-id 'firefox' tags $((1 << 2)) # tag 3
 ## steam
 riverctl rule-add -app-id 'steam' float
+riverctl rule-add -app-id 'Steam' float
 riverctl rule-add -app-id 'Zenity' float
 riverctl rule-add -app-id 'steam' tags $((1 << 4)) # tag 5
-riverctl rule-add -title 'steam_app_*' tags $((1 << 1)) # tag 2
+riverctl rule-add -app-id 'Steam' tags $((1 << 4)) # tag 5
+riverctl rule-add -title 'Steam' tags $((1 << 4)) # this is startup loading screen, i think
+riverctl rule-add -app-id 'steam_app_*' tags $((1 << 1)) # tag 2
 
 ## picture in picture
 riverctl rule-add -title "Picture-in-Picture" float
@@ -216,8 +222,12 @@ riverctl rule-add -title "QEMU" float
 riverctl rule-add -title "QEMU" tags $((1 << 1)) # tag 2
 # }}}
 
-# Set the default layout generator to be rivertile and start it.
-# River will send the process group of the init executable SIGTERM on exit.
+# start up programs {{{
+riverctl spawn "killall yambar ; yambar -c ~/.config/yambar/river.yml" # status bar
+riverctl spawn "fnott" # notification daemon
+riverctl spawn "killall wbg ; wbg $XDG_DATA_HOME/wallpaper" # wallpaper
+# }}}
+
 riverctl default-layout rivertile
 #riverctl default-attach-mode below # newly spawn windows are below focused window
 rivertile -main-location left -view-padding 3 -outer-padding 7 -main-ratio 0.57 &
