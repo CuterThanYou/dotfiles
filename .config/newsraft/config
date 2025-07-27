@@ -1,0 +1,30 @@
+open-in-browser-command $BROWSER "%l"
+bind M exec setsid mpv --terminal=no "%l" &
+bind ? exec man newsraft
+bind E exec $EDITOR $XDG_CONFIG_HOME/newsraft/feeds
+user-agent ""
+
+# sort by publication {{{
+menu-item-sorting time-publication-desc
+menu-item-entry-format " %D │ %o"
+menu-explore-item-entry-format " %D │ %-28O │ %o"
+bind t sort-by-time-publication
+bind T sort-by-time-update
+# }}}
+
+# color {{{
+color-status                magenta default bold
+color-status-info           cyan default bold
+color-status-fail           red default bold
+color-list-item             default default
+color-list-item-unread      yellow default
+color-list-item-important   magenta default
+color-list-feed             default default
+color-list-feed-unread      yellow default
+color-list-feed-failed      red default
+color-list-section          default default
+color-list-section-unread   yellow default
+color-list-section-failed   red default
+# }}}
+
+# vim:ft=sh fdm=marker
