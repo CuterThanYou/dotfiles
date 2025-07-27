@@ -1,0 +1,14 @@
+[filechooser]
+#cmd=/usr/local/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+cmd=~/.config/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+default_dir=$HOME/downloads
+
+# termcmd is defined in wrapper instead
+#env=TERMCMD='foot -T "terminal filechooser" -o locked-title=yes'
+#env=TERMCMD=foot
+
+# Mode must be one of 'suggested', 'default', or 'last'.
+open_mode=suggested
+save_mode=suggested
+
+# vim:ft=dosini
