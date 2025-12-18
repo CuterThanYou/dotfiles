@@ -104,7 +104,7 @@ cmd copy_to_clipboard ${{
 }}
 
 cmd fzf_jump ${{
-	res="$(find . -maxdepth 1 | fzf --reverse --header="Jump to location")"
+	res="$(fzf --reverse --header="Jump to location")"
 	if [ -n "$res" ]; then
 		if [ -d "$res" ]; then
 			cmd="cd"

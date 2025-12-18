@@ -1,72 +1,86 @@
 #!/bin/sh
 
+# this is passed by lf
+PREVIEW_INPUT="$1"
+PREVIEW_WIDTH="$2"
+PREVIEW_HEIGHT="$3"
+
 genThumbnail(){ # {{{
 	# just copied from yazi lmao
 	# https://github.com/sxyazi/yazi/blob/main/yazi-plugin/preset/plugins/video.lua
-	vduration=$(ffprobe -i "$1" -show_entries format=duration -v quiet -of csv="p=0")
-	removedecimal=$(printf "%.0f\n" "$vduration")
+	video="$1"
+	output="$2"
+	vduration=$(ffprobe -i "$video" -show_entries format=duration -v quiet -of csv="p=0" |
+		cut -d'.' -f1 )
 	percentage=5
 	quality=2 # -q:v parameter (2:31); smaller is better
-	pointToJump=$(((removedecimal * percentage) / 100))
+	pointToJump=$(((vduration * percentage) / 100))
 	width=350
 
 	ffmpeg -v quiet -threads 1 -hwaccel auto \
 		-skip_frame nokey -ss "$pointToJump" \
-		-an -sn -dn -i "$1" \
+		-an -sn -dn -i "$video" \
 		-map 0:v -vframes 1 -q:v $quality \
 		-vf "scale=-1:'min($width,ih)':flags=fast_bilinear" \
-		-f image2 "$THUMB_CACHE"
+		-f image2 "$output"
 		#-f image2 pipe:1
 } # }}}
 
-MIME="$(file -Lb --mime-type -- "$1")"
+printImage(){ # {{{
+	chafa -f sixel \
+		-s "${PREVIEW_WIDTH}x${PREVIEW_HEIGHT}" \
+		--animate off --polite on "$1" ||
+	echo "failed to preview image"
+} # }}}
+
+MIME="$(file -Lb --mime-type -- "$PREVIEW_INPUT")"
 case "$MIME" in
 
 	image/*) # {{{
-		chafa -f sixel -s "$2x$3" --animate off --polite on "$1" || echo "failed to preview image"
+		printImage "$PREVIEW_INPUT"
 		# exit 0 will cache sixel in memory
 		exit 1;; # }}}
 
 	video/*) # {{{
 		CACHE_DIR="/tmp/lf-preview/"
 		[ -d $CACHE_DIR ] || mkdir -p $CACHE_DIR
-		THUMB_CACHE="$CACHE_DIR/$(sha256sum "$1" | cut -d' ' -f1)"
+		VID_HASH="$(xxhsum "$PREVIEW_INPUT")" || { echo "xxhash isn't installed"; exit 1; }
+		THUMB_CACHE="$CACHE_DIR/$(echo "$VID_HASH" | cut -d' ' -f1).jpg"
 
-		# TODO: chafa is broken here sometimes, img2sixel doesn't have that problem
 		if [ -f "$THUMB_CACHE" ]; then
-			chafa "$THUMB_CACHE" || echo "failed to preview video"
+			printImage "$THUMB_CACHE"
 		else
-			genThumbnail "$1" && chafa -f sixel "$THUMB_CACHE" || echo "failed to preview video"
+			genThumbnail "$PREVIEW_INPUT" "$THUMB_CACHE" && printImage "$THUMB_CACHE"
 		fi
 		exit 1;; # }}}
 
 	application/json|application/x-ndjson) # {{{
-		jq --color-output . "$1" || cat "$1"
+		jq --color-output . "$PREVIEW_INPUT" || cat "$PREVIEW_INPUT"
 		;; # }}}
 
 	application/zip) # {{{
-		zipinfo -1 "$1"
+		zipinfo -1 "$PREVIEW_INPUT"
 		;; # }}}
 
 	application/x-7z-compressed|application/vnd.rar) # {{{
-		7z l -ba -slt "$1" | grep -oP '(?<=Path = ).*$'
+		7z l -ba -slt "$PREVIEW_INPUT" | grep -oP '(?<=Path = ).*$'
 		;; # }}}
 
 	*/x-tar|*/x-xz|*/zstd|*/gzip|*/x-bzip2) # {{{
-		tar -tf "$1"
+		tar -tf "$PREVIEW_INPUT"
 		;; # }}}
 
 	text/*|application/javascript) # {{{
-		expand -t 2 "$1"
+		expand -t 2 "$PREVIEW_INPUT"
 		;; # }}}
 
 	*) # {{{
 		printf "\033[1;34mMimetype : %s\n" "$MIME"
 
-		for i in $(seq 1 "$2"); do printf '='; done # separator
+		for _ in $(seq 1 "$2"); do printf '='; done # separator
 		printf "\033[0m\n"
 
-		file -bL "$1" | tr ',' '\n'
+		file -bL "$PREVIEW_INPUT" | tr ',' '\n'
 		;; # }}}
 esac
 
