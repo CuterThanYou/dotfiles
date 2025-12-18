@@ -25,7 +25,11 @@ alias df="df -h"
 alias du="du -h"
 alias rsync="rsync -uPrv"
 alias dd="dd status=progress"
-alias ffmpeg="ffmpeg -hide_banner" # hide build flags
+
+# hide build flags
+alias ffmpeg="ffmpeg -hide_banner"
+alias ffprobe="ffprobe -hide_banner"
+alias ffplay="ffplay -hide_banner"
 
 # color
 alias grep="grep --color=always"

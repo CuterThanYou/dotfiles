@@ -5,7 +5,7 @@ local map = vim.keymap.set
 map('v', '<C-c>', '"+y')
 map('n', '<C-v>', '"+p')
 map('i', '<C-v>', '<Esc>"+pa')
-map('n', '<C-c>', ':let @+ = @0<CR>') -- copy yank register to system clipboard
+map('n', '<C-c>', ':let @+ = @0<CR>:echo("copied yank register to system clipboard")<CR>')
 
 map('n', '<Leader>r', ':so ~/.config/nvim/init.lua<CR>') -- reload config
 
@@ -92,6 +92,7 @@ vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#cba6f7' })
 
 -- languages specifics {{{
 vim.g.c_syntax_for_h = true
+vim.g.markdown_folding=1
 -- ignore their dumb formatting guide
 vim.g.rust_recommended_style = false
 vim.g.python_recommended_style = false

@@ -1,6 +1,7 @@
 include catppuccin-mocha
 map . recolor
 
+set selection-clipboard clipboard # save to ctrl+v clipboard instead of middle-click clipboard
 set show-recent 0
 set statusbar-home-tilde true
 set window-title-basename true
