@@ -19,8 +19,15 @@ riverctl allow-tearing enabled
 riverctl set-repeat 43 259
 
 # variables
-menu=fuzzel
+menu="fuzzel"
+statusbar="yambar -c ~/.config/yambar/river.yml"
+notidaemon="fnott"
 screenlock="waylock -fork-on-lock -ignore-empty-password -init-color 0x1e1e2e -input-color 0xcba6f7 -fail-color 0xf38ba8"
+volumeUp="wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+volumeDown="wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+volumeToggle="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+brightnessUp="brightnessctl -e set +5%"
+brightnessDown="brightnessctl -e set 5%-"
 
 # pointers settings {{{
 pointers="$(riverctl list-inputs | grep pointer)" # both mouse and trackpad
@@ -169,19 +176,19 @@ riverctl map normal Super+Shift S spawn 'screenshot select-wl'
 # keybinds that works in locked mode {{{
 for mode in normal locked; do
 	# volume with pipewire
-	riverctl map -repeat $mode Super SemiColon spawn 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+'
-	riverctl map -repeat $mode Super Y spawn 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'
+	riverctl map -repeat $mode Super SemiColon spawn "$volumeUp"
+	riverctl map -repeat $mode Super Y spawn "$volumeDown"
 
 	 # brightness
-	 riverctl map -repeat $mode Super+Shift SemiColon spawn 'brightnessctl -e set +5%'
-	 riverctl map -repeat $mode Super+Shift Y spawn 'brightnessctl -e set 5%-'
+	 riverctl map -repeat $mode Super+Shift SemiColon spawn "$brightnessUp"
+	 riverctl map -repeat $mode Super+Shift Y spawn "$brightnessDown"
 
 	 # xf86 key for the sake of having it, i don't actually use it
-	 riverctl map -repeat $mode None XF86AudioRaiseVolume spawn 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+'
-	 riverctl map -repeat $mode None XF86AudioLowerVolume spawn 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'
-	 riverctl map $mode None XF86AudioMute spawn 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
-	 riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightnessctl -e set +5%'
-	 riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightnessctl -e set 5%-'
+	 riverctl map -repeat $mode None XF86AudioRaiseVolume spawn "$volumeUp"
+	 riverctl map -repeat $mode None XF86AudioLowerVolume spawn "$volumeDown"
+	 riverctl map $mode None XF86AudioMute spawn "$volumeToggle"
+	 riverctl map -repeat $mode None XF86MonBrightnessUp   spawn "$brightnessUp"
+	 riverctl map -repeat $mode None XF86MonBrightnessDown spawn "$brightnessDown"
  done # }}}
 # }}}
 
@@ -223,8 +230,8 @@ riverctl rule-add -title "QEMU" tags $((1 << 1)) # tag 2
 # }}}
 
 # start up programs {{{
-riverctl spawn "killall yambar ; yambar -c ~/.config/yambar/river.yml" # status bar
-riverctl spawn "fnott" # notification daemon
+riverctl spawn "killall $(echo "$statusbar" | cut -f1 -d' ') ; $statusbar" # status bar
+riverctl spawn "$notidaemon" # notification daemon
 riverctl spawn "killall wbg ; wbg $XDG_DATA_HOME/wallpaper" # wallpaper
 # }}}
 
