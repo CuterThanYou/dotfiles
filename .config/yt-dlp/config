@@ -1,5 +1,6 @@
 # output
 --paths "~/media/videos/yt/"
+--paths "temp:/tmp/yt-dlp"
 #--output "%(uploader_id|Unknown)s.%(upload_date|unknown)s.%(title)s.%(ext)s"
 --output "%(upload_date|unknown)s.%(title)s.%(ext)s"
 --merge-output-format "mkv"
@@ -7,13 +8,14 @@
 --sponsorblock-remove "all,-filler"
 
 # -F to list format
--f bestvideo+bestaudio # 'bestaudio' with yt compression
+-f bestvideo*+bestaudio/best # default
 
 # subtitles
 #--write-subs # not needed with embed sub option
 --write-auto-subs
 --sub-langs "en.*"
 --embed-subs
+--sub-format "srt/best" # i hate ass
 #--compat-options no-keep-subs
 
 # other settings
