@@ -10,7 +10,6 @@ set history false
 set ratios 2:4:5
 set info size
 #set drawbox
-set sixel
 set icons
 set previewer '~/.config/lf/previewer'
 

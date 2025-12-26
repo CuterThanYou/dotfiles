@@ -25,6 +25,10 @@ color-list-feed-failed      red default
 color-list-section          default default
 color-list-section-unread   yellow default
 color-list-section-failed   red default
+
+color-list-item-selected    magenta default bold underlined
+color-list-feed-selected    magenta default bold underlined
+color-list-section-selected magenta default bold underlined
 # }}}
 
 # vim:ft=sh fdm=marker
